@@ -1,4 +1,4 @@
-import { User } from "../types/user";
+import { IUser } from "../types/user";
 import createResourceId from "../utils/createResourceId";
 import { sign, decode, JWT_SECRET, JWT_EXPIRES_IN } from "../utils/jwt";
 import wait from "../utils/wait";
@@ -77,7 +77,7 @@ class AuthApi {
     });
   }
 
-  me(accessToken: string): Promise<User> {
+  me(accessToken: string): Promise<IUser> {
     return new Promise((resolve, reject) => {
       try {
         // Decode access token

@@ -19,6 +19,14 @@ const Register = Loadable(lazy(() => import("../pages/auth/RegisterPage")));
 //  * HOME PAGE
 const Home = Loadable(lazy(() => import("../pages/home/HomePage")));
 
+//  * CATEGORIES PAGE
+const Categories = Loadable(
+  lazy(() => import("../pages/category/CategoryPage"))
+);
+
+//  * TASKS PAGE
+const Tasks = Loadable(lazy(() => import("../pages/task/TaskPage")));
+
 const routes: RouteObject[] = [
   {
     path: "authentication",
@@ -51,6 +59,33 @@ const routes: RouteObject[] = [
         element: (
           <AuthGuard>
             <Home />
+          </AuthGuard>
+        ),
+      },
+    ],
+  },
+
+  {
+    path: "categories",
+    children: [
+      {
+        path: ":id",
+        element: (
+          <AuthGuard>
+            <Categories />
+          </AuthGuard>
+        ),
+      },
+    ],
+  },
+  {
+    path: "tasks",
+    children: [
+      {
+        path: ":id",
+        element: (
+          <AuthGuard>
+            <Tasks />
           </AuthGuard>
         ),
       },

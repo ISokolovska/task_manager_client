@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Alert, Box, Button, FormHelperText, TextField } from "@mui/material";
+import { Box, Button, FormHelperText, TextField } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import useMounted from "../../hooks/useMounted";
 import * as Yup from "yup";
@@ -97,13 +97,6 @@ const Login: FC = (props) => {
             >
               Log In
             </Button>
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            <Alert severity="info">
-              <div>
-                Use <b>demo@demo.com</b> and password <b>Password123!</b>
-              </div>
-            </Alert>
           </Box>
         </form>
       )}

@@ -1,13 +1,27 @@
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Box, Button, FormHelperText, TextField } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import useMounted from "../../hooks/useMounted";
+import { Option } from "../../types/user";
+import { Select } from "../Select/Select";
+
+const options: Option[] = [
+  {
+    label: "admin",
+    value: "admin",
+  },
+  {
+    label: "user",
+    value: "user",
+  },
+];
 
 const Registration: FC = (props) => {
   const mounted = useMounted();
   const { register } = useAuth() as any;
+  const [, setSelectedItem] = useState<Option | null>(null);
 
   return (
     <Formik
@@ -56,17 +70,22 @@ const Registration: FC = (props) => {
         values,
       }): JSX.Element => (
         <form noValidate onSubmit={handleSubmit} {...props}>
-          <TextField
+          {/* <TextField
             error={Boolean(touched.role && errors.role)}
             fullWidth
             helperText={touched.role && errors.role}
-            label="role"
+            label="Role"
             margin="normal"
             role="role"
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.role}
             variant="outlined"
+          /> */}
+          <Select
+            placeholder="Select user"
+            options={options}
+            onChange={(selection: Option) => setSelectedItem(selection)}
           />
           <TextField
             error={Boolean(touched.email && errors.email)}

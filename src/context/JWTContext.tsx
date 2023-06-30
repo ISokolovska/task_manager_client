@@ -1,13 +1,13 @@
 import { createContext, useEffect, useReducer } from "react";
 import type { FC, ReactNode } from "react";
 import PropTypes from "prop-types";
-import type { User } from "../types/user";
+import type { IUser } from "../types/user";
 import { authApi } from "../api/authApi";
 
 interface State {
   isInitialized: boolean;
   isAuthenticated: boolean;
-  user: User | null;
+  user: IUser | null;
 }
 
 interface AuthContextValue extends State {
@@ -24,14 +24,14 @@ type InitializeAction = {
   type: "INITIALIZE";
   payload: {
     isAuthenticated: boolean;
-    user: User | null;
+    user: IUser | null;
   };
 };
 
 type LoginAction = {
   type: "LOGIN";
   payload: {
-    user: User;
+    user: IUser;
   };
 };
 
@@ -42,7 +42,7 @@ type LogoutAction = {
 type RegisterAction = {
   type: "REGISTER";
   payload: {
-    user: User;
+    user: IUser;
   };
 };
 

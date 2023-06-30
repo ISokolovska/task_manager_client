@@ -1,8 +1,8 @@
 import React from "react";
-import { Task } from "../../../types/task";
+import { ITask } from "../../../types/task";
 
 interface TaskItemProps {
-  task: Task;
+  task: ITask;
 }
 
 const TaskItem = (props: TaskItemProps) => {

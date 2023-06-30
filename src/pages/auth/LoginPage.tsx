@@ -49,9 +49,6 @@ const LoginPage: FC = () => {
                 <Typography color="textPrimary" gutterBottom variant="h4">
                   Log in
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
-                  Log in on the internal platform
-                </Typography>
               </div>
             </Box>
             <Box

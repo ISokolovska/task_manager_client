@@ -1,10 +1,10 @@
 import React from "react";
 import ButtonActions from "../../Button/ButtonActions";
 import ButtonMore from "../../Button/ButtonMore";
-import { Category } from "../../../types/category";
+import { ICategory } from "../../../types/category";
 
 interface CategoryItemProps {
-  category: Category;
+  category: ICategory;
 }
 
 const CategoryItem = (props: CategoryItemProps) => {

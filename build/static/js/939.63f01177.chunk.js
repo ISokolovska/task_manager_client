@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunktask_manager_client=self.webpackChunktask_manager_client||[]).push([[939],{6939:function(e,n,a){a.r(n);a(2791);var t=a(184);n.default=function(){return(0,t.jsx)("div",{children:(0,t.jsx)("h1",{children:"HomePage"})})}}}]);
+//# sourceMappingURL=939.63f01177.chunk.js.map
