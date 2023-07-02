@@ -1,35 +1,33 @@
 import { useState, type FC } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Box, Button, FormHelperText, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormHelperText,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import useMounted from "../../hooks/useMounted";
-import { Option } from "../../types/user";
-import { Select } from "../Select/Select";
 
-const options: Option[] = [
-  {
-    label: "admin",
-    value: "admin",
-  },
-  {
-    label: "user",
-    value: "user",
-  },
+const options = [
+  { value: "admin", label: "Admin" },
+  { value: "user", label: "User" },
 ];
 
 const Registration: FC = (props) => {
   const mounted = useMounted();
   const { register } = useAuth() as any;
-  const [, setSelectedItem] = useState<Option | null>(null);
+  const [selectedOption, setSelectedOption] = useState("");
 
   return (
     <Formik
       initialValues={{
         email: "",
+        options: { value: "" },
         password: "",
-        role: "",
-        policy: false,
+        // policy: false,
         submit: null,
       }}
       validationSchema={Yup.object().shape({
@@ -37,16 +35,19 @@ const Registration: FC = (props) => {
           .email("Must be a valid email")
           .max(255)
           .required("Email is required"),
-        role: Yup.string().max(255).required("role is required"),
         password: Yup.string().min(7).max(255).required("Password is required"),
-        policy: Yup.boolean().oneOf([true], "This field must be checked"),
+        options: Yup.object().shape({
+          label: Yup.string().required("Role is required"),
+          value: Yup.string().required("Role is required"),
+        }),
+        // policy: Yup.boolean().oneOf([true], "This field must be checked"),
       })}
       onSubmit={async (
         values,
         { setErrors, setStatus, setSubmitting }
       ): Promise<void> => {
         try {
-          await register(values.email, values.role, values.password);
+          await register(values.email, values.options.value, values.password);
 
           if (mounted.current) {
             setStatus({ success: true });
@@ -70,30 +71,36 @@ const Registration: FC = (props) => {
         values,
       }): JSX.Element => (
         <form noValidate onSubmit={handleSubmit} {...props}>
-          {/* <TextField
-            error={Boolean(touched.role && errors.role)}
+          <TextField
+            {...register("options")}
+            // {...register}
+            id="outlined-select-currency"
+            select
             fullWidth
-            helperText={touched.role && errors.role}
-            label="Role"
+            error={Boolean(touched.options?.value && errors.options?.value)}
+            helperText={touched.options?.value && errors.options?.value}
+            label="Select user"
             margin="normal"
-            role="role"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={values.role}
             variant="outlined"
-          /> */}
-          <Select
-            placeholder="Select user"
-            options={options}
-            onChange={(selection: Option) => setSelectedItem(selection)}
-          />
+            value={selectedOption}
+            onChange={(e) => setSelectedOption(e.target.value)}
+          >
+            {options.map((option) => {
+              return (
+                <MenuItem key={option.value} value={option.label}>
+                  {option.label}
+                </MenuItem>
+              );
+            })}
+          </TextField>
+
           <TextField
             error={Boolean(touched.email && errors.email)}
             fullWidth
             helperText={touched.email && errors.email}
-            label="Email"
+            label="Email Address"
             margin="normal"
-            role="email"
+            name="email"
             onBlur={handleBlur}
             onChange={handleChange}
             type="email"
@@ -106,7 +113,7 @@ const Registration: FC = (props) => {
             helperText={touched.password && errors.password}
             label="Password"
             margin="normal"
-            role="password"
+            name="password"
             onBlur={handleBlur}
             onChange={handleChange}
             type="password"
@@ -121,9 +128,9 @@ const Registration: FC = (props) => {
               mt: 2,
             }}
           ></Box>
-          {Boolean(touched.policy && errors.policy) && (
+          {/* {Boolean(touched.policy && errors.policy) && (
             <FormHelperText error>{errors.policy}</FormHelperText>
-          )}
+          )} */}
           {errors.submit && (
             <Box sx={{ mt: 3 }}>
               <FormHelperText error>{errors.submit}</FormHelperText>

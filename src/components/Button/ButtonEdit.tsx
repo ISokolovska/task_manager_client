@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@mui/material";
 
-const ButtonEdit=()=> {
+const ButtonEdit = () => {
   return (
-    <div><button type='button'>Edit</button></div>
-  )
-}
+    <div>
+      <Button
+        variant="outlined"
+        // onClick={() => {
+        //   alert("clicked");
+        // }}
+      >
+        Edit
+      </Button>
+    </div>
+  );
+};
 
-export default ButtonEdit
+export default ButtonEdit;

@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@mui/material";
 
-const ButtonDelete=()=> {
+const ButtonDelete = () => {
   return (
-    <div><button type='button'>Delete</button></div>
-  )
-}
+    <div>
+      <Button
+        variant="outlined"
+        // onClick={() => {
+        //   alert("clicked");
+        // }}
+      >
+        Delete
+      </Button>
+    </div>
+  );
+};
 
-export default ButtonDelete
+export default ButtonDelete;

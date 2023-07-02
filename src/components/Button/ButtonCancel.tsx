@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@mui/material";
 
-const ButtonCancel=() =>{
+const ButtonCancel = () => {
   return (
-    <div><button type="submit">cancel</button></div>
-  )
-}
+    <div>
+      <Button
+        variant="outlined"
+        // onClick={() => {
+        //   alert("clicked");
+        // }}
+      >
+        cancel
+      </Button>
+    </div>
+  );
+};
 
-export default ButtonCancel
+export default ButtonCancel;

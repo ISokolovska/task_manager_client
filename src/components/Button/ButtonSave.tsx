@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@mui/material";
 
-const ButtonSave=() =>{
+const ButtonSave = () => {
   return (
-    <div><button type="submit">save</button></div>
-  )
-}
+    <div>
+      <Button
+        variant="outlined"
+        // onClick={() => {
+        //   alert("clicked");
+        // }}
+      >
+        save
+      </Button>
+    </div>
+  );
+};
 
-export default ButtonSave
+export default ButtonSave;

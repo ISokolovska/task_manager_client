@@ -11,8 +11,6 @@ import {
 } from "@mui/material";
 import Registration from "../../components/Auth/Registration";
 
-// import Registration from "../../components/Auth/Registration";
-
 const RegisterPage: FC = () => {
   return (
     <Box
