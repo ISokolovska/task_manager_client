@@ -26,8 +26,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="categories" element={<Categories />} />
-          <Route path="tasks" element={<Tasks />} />
+          <Route path="category" element={<Categories />} />
+          <Route path="task" element={<Tasks />} />
 
           {/* <Route element={<PublicRoute />}> */}
           <Route path="login" element={<Login />} />

@@ -1,74 +1,99 @@
-import type { FC } from "react";
-import { Box, Button, FormHelperText, TextField } from "@mui/material";
-import useAuth from "../../hooks/useAuth";
-import useMounted from "../../hooks/useMounted";
-import * as Yup from "yup";
-import { Formik } from "formik";
+import React, { useState } from "react";
 
-const Login: FC = (props) => {
-  const mounted = useMounted();
-  const { login } = useAuth() as any;
+// import type { FC } from "react";
+import { Box, Button, TextField } from "@mui/material";
+// import useAuth from "../../hooks/useAuth";
+// import useMounted from "../../hooks/useMounted";
+// import * as Yup from "yup";
+import { Form } from "formik";
+import { setCredentials } from "../../redux/features/auth/authSlice";
+
+// import { ProtectedComponent } from "./ProtectedComponent";
+import { useLoginMutation } from "../../redux/api/services/userApi";
+import type { LoginRequest } from "../../redux/api/services/userApi";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "material-react-toastify";
+import LoadingScreen from "../LoadingScreen";
+
+function PasswordInput({
+  name,
+  onChange,
+}: {
+  name: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}) {
+  // const [show, setShow] = React.useState(false);
+  // const handleClick = () => setShow(!show);
 
   return (
-    <Formik
-      initialValues={{
-        email: "",
-        password: "",
-        submit: null,
-      }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Must be a valid email")
-          .max(255)
-          .required("Email is required"),
-        password: Yup.string().max(255).required("Password is required"),
-      })}
-      onSubmit={async (
-        values,
-        { setErrors, setStatus, setSubmitting }
-      ): Promise<void> => {
-        try {
-          await login(values.email, values.password);
+    <>
+      {/* <Input
+        pr="4.5rem"
+        type={show ? "text" : "password"}
+        placeholder="Enter password"
+        name={name}
+        onChange={onChange}
+      /> */}
+      <TextField
+        // error={Boolean(touched.password && errors.password)}
+        fullWidth
+        // helperText={touched.password && errors.password}
+        label="Password"
+        margin="normal"
+        // name="password"
+        name={name}
+        // onBlur={handleBlur}
+        onChange={onChange}
+        // type="password"
+        // value={values.password}
+        variant="outlined"
+      />
 
-          if (mounted.current) {
-            setStatus({ success: true });
-            setSubmitting(false);
-          }
-        } catch (err: any) {
-          console.error(err);
-          if (mounted.current) {
-            setStatus({ success: false });
-            setErrors({ submit: err?.message });
-            setSubmitting(false);
-          }
-        }
-      }}
-    >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        isSubmitting,
-        touched,
-        values,
-      }): JSX.Element => (
-        <form noValidate onSubmit={handleSubmit} {...props}>
-          <TextField
-            autoFocus
-            error={Boolean(touched.email && errors.email)}
-            fullWidth
-            helperText={touched.email && errors.email}
-            label="Email"
-            margin="normal"
-            name="email"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            type="email"
-            value={values.email}
-            variant="outlined"
-          />
-          <TextField
+      {/* <InputRightElement width="4.5rem">
+        <Button h="1.75rem" size="sm" onClick={handleClick}>
+          {show ? "Hide" : "Show"}
+        </Button>
+      </InputRightElement> */}
+    </>
+  );
+}
+
+const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [formState, setFormState] = useState<LoginRequest>({
+    email: "",
+    password: "",
+  });
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const handleChange = ({
+    target: { name, value },
+  }: React.ChangeEvent<HTMLInputElement>) =>
+    setFormState((prev) => ({ ...prev, [name]: value }));
+
+  return (
+    <Form>
+      <form>
+        <TextField
+          autoFocus
+          // error={Boolean(touched.email && errors.email)}
+          fullWidth
+          // helperText={touched.email && errors.email}
+          label="Email"
+          margin="normal"
+          name="email"
+          // onBlur={handleBlur}
+          onChange={handleChange}
+          type="email"
+          // value={values.email}
+          variant="outlined"
+        />
+        <PasswordInput onChange={handleChange} name="password" />
+        {/* <TextField
             error={Boolean(touched.password && errors.password)}
             fullWidth
             helperText={touched.password && errors.password}
@@ -80,27 +105,43 @@ const Login: FC = (props) => {
             type="password"
             value={values.password}
             variant="outlined"
-          />
-          {errors.submit && (
-            <Box sx={{ mt: 3 }}>
-              <FormHelperText error>{errors.submit}</FormHelperText>
-            </Box>
-          )}
-          <Box sx={{ mt: 2 }}>
+          /> */}
+
+        <Box sx={{ mt: 2 }}>
+          {/* <Button
+            color="primary"
+            // disabled={isSubmitting}
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+          >
+            Log In
+          </Button> */}
+          {isLoading ? (
+            <LoadingScreen />
+          ) : (
             <Button
               color="primary"
-              disabled={isSubmitting}
+              disabled={isLoading}
               fullWidth
               size="large"
               type="submit"
               variant="contained"
-            >
-              Log In
-            </Button>
-          </Box>
-        </form>
-      )}
-    </Formik>
+              onClick={async () => {
+                try {
+                  const user = await login(formState).unwrap();
+                  dispatch(setCredentials(user));
+                  navigate("/");
+                } catch (err) {
+                  toast.error("Oh no, there was an error!");
+                }
+              }}
+            ></Button>
+          )}
+        </Box>
+      </form>
+    </Form>
   );
 };
 

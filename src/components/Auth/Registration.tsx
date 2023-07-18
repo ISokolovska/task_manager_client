@@ -10,16 +10,19 @@ import {
 } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import useMounted from "../../hooks/useMounted";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const options = [
-  { value: "admin", label: "Admin" },
-  { value: "user", label: "User" },
-];
+// const options = [
+//   { value: "admin", label: "Admin" },
+//   { value: "user", label: "User" },
+// ];
 
-const Registration: FC = (props) => {
-  const mounted = useMounted();
-  const { register } = useAuth() as any;
-  const [selectedOption, setSelectedOption] = useState("");
+const Registration = () => {
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const [selectedOption, setSelectedOption] = useState("");
 
   return (
     <Formik
@@ -71,7 +74,7 @@ const Registration: FC = (props) => {
         values,
       }): JSX.Element => (
         <form noValidate onSubmit={handleSubmit} {...props}>
-          <TextField
+          {/* <TextField
             {...register("options")}
             // {...register}
             id="outlined-select-currency"
@@ -92,7 +95,7 @@ const Registration: FC = (props) => {
                 </MenuItem>
               );
             })}
-          </TextField>
+          </TextField> */}
 
           <TextField
             error={Boolean(touched.email && errors.email)}

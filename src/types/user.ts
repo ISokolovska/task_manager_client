@@ -1,8 +1,12 @@
-export interface IUser {
-  id: number;
+export interface User {
+  id: number | null;
   email: string;
-  role: string;
-  // [key: string]: any;
+  role: string | null;
+  isVerified: boolean;
+}
+
+export interface UserDataResponse {
+  data: User;
 }
 
 export type Option = {

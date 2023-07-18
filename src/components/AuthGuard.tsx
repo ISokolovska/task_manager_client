@@ -1,41 +1,40 @@
-import type { FC, ReactNode } from "react";
-import { useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
-import useAuth from "../hooks/useAuth";
-import LoginPage from "../pages/auth/LoginPage";
+// import type { FC, ReactNode } from "react";
+// import { useState } from "react";
+// import { Navigate, useLocation } from "react-router-dom";
+// import PropTypes from "prop-types";
+// import useAuth from "../hooks/useAuth";
+// import LoginPage from "../pages/auth/LoginPage";
 
-interface AuthGuardProps {
-  children: ReactNode;
-}
+// interface AuthGuardProps {
+//   children: ReactNode;
+// }
 
-const AuthGuard: FC<AuthGuardProps> = (props) => {
-  const { children } = props;
-  const auth = useAuth() as any;
-  const location = useLocation();
-  const [requestedLocation, setRequestedLocation] = useState<string | null>();
+// const AuthGuard: FC<AuthGuardProps> = (props) => {
+//   const { children } = props;
+//   const auth = useAuth() as any;
+//   const location = useLocation();
+//   const [requestedLocation, setRequestedLocation] = useState<string | null>();
 
-  if (!auth.isAuthenticated) {
-    if (location.pathname !== requestedLocation) {
-      setRequestedLocation(location.pathname);
-    }
+//   if (!auth.isAuthenticated) {
+//     if (location.pathname !== requestedLocation) {
+//       setRequestedLocation(location.pathname);
+//     }
+//     return <LoginPage />;
+//   }
 
-    return <LoginPage />;
-  }
+//   // This is done so that in case the route changes by any chance through other
+//   // means between the moment of request and the render we navigate to the initially
+//   // requested route.
+//   if (requestedLocation && location.pathname !== requestedLocation) {
+//     setRequestedLocation(null);
+//     return <Navigate to={requestedLocation} />;
+//   }
 
-  // This is done so that in case the route changes by any chance through other
-  // means between the moment of request and the render we navigate to the initially
-  // requested route.
-  if (requestedLocation && location.pathname !== requestedLocation) {
-    setRequestedLocation(null);
-    return <Navigate to={requestedLocation} />;
-  }
+//   return <>{children}</>;
+// };
 
-  return <>{children}</>;
-};
+// AuthGuard.propTypes = {
+//   children: PropTypes.node,
+// };
 
-AuthGuard.propTypes = {
-  children: PropTypes.node,
-};
-
-export default AuthGuard;
+// export default AuthGuard;
