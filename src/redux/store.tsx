@@ -11,17 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-
-import authReducer from "./features/auth/authSlice";
-
-import userReducer from "./features/user/userSlice";
-import { userApi } from "./api/services/userApi";
-// import notificationReducer from "redux/features/notificationSlice/notificationSlice";
-// import { authApi } from "../redux/api/authApi";
-// import { userApi } from "redux/api/userApi";
-// import { patientApi } from "redux/api/patientApi";
-// import { availabilityApi } from "./api/availabilityApi";
-// import { appointmentsApi } from "./api/appointmentsApi";
+import { authApi } from "./services/authApi";
 
 const persistConfig = {
   key: "user",
@@ -30,14 +20,14 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  [userApi.reducerPath]: userApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
   //   [userApi.reducerPath]: userApi.reducer,
   //   [patientApi.reducerPath]: patientApi.reducer,
   //   [availabilityApi.reducerPath]: availabilityApi.reducer,
   //   [appointmentsApi.reducerPath]: appointmentsApi.reducer,
-  auth: persistReducer(persistConfig, userReducer),
+  // auth: persistReducer(persistConfig, userReducer),
   //   notificationState: notificationReducer,
-  //   auth: authReducer,
+  auth: authReducer,
 });
 
 export const store = configureStore({

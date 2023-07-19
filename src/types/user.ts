@@ -1,15 +1,34 @@
-export interface User {
-  id: number | null;
+export interface IUser {
+  id: number;
   email: string;
-  role: string | null;
-  isVerified: boolean;
+  role: string;
 }
 
-export interface UserDataResponse {
-  data: User;
+export interface RegisterData {
+  email: string;
+  password: string;
+  role: string;
 }
 
-export type Option = {
-  label: string;
-  value: string;
-};
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface UserResponse {
+  user: IUser;
+  token: string;
+}
+
+export interface MessageResponse {
+  message: string;
+}
+
+// export interface UserDataResponse {
+//   data: IUser;
+// }
+
+// export type Option = {
+//   label: string;
+//   value: string;
+// };

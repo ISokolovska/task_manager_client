@@ -9,8 +9,8 @@ import { Form } from "formik";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 
 // import { ProtectedComponent } from "./ProtectedComponent";
-import { useLoginMutation } from "../../redux/api/services/userApi";
-import type { LoginRequest } from "../../redux/api/services/userApi";
+import { useLoginMutation } from "../../redux/services/userApi";
+import type { LoginRequest } from "../../redux/services/userApi";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "material-react-toastify";
