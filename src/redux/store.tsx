@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
+// import { setupListeners } from "@reduxjs/toolkit/query";
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,
@@ -11,49 +11,54 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { authApi } from "./services/authApi";
+import { authApi } from "./api/authApi";
+import { categoryApi } from "./api/categoryApi";
+import { taskApi } from "./api/taskApi";
+import userReducer from "../redux/features/auth/userSlice";
+import { userApi } from "./api/userApi";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const persistConfig = {
   key: "user",
   storage,
-  whitelist: ["token", "isVerified"],
+  whitelist: ["token", "isLoggedIn"],
 };
 
 const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
-  //   [userApi.reducerPath]: userApi.reducer,
-  //   [patientApi.reducerPath]: patientApi.reducer,
-  //   [availabilityApi.reducerPath]: availabilityApi.reducer,
-  //   [appointmentsApi.reducerPath]: appointmentsApi.reducer,
-  // auth: persistReducer(persistConfig, userReducer),
-  //   notificationState: notificationReducer,
-  auth: authReducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [categoryApi.reducerPath]: categoryApi.reducer,
+  [taskApi.reducerPath]: taskApi.reducer,
+  userState: persistReducer(persistConfig, userReducer),
 });
 
 export const store = configureStore({
   reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== "development",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat([
-      //   authApi.middleware,
-      //   userApi.middleware,
-      //   patientApi.middleware,
-      //   availabilityApi.middleware,
-      //   appointmentsApi.middleware,
+      authApi.middleware,
+      userApi.middleware,
+      categoryApi.middleware,
+      taskApi.middleware,
     ]),
-
-  devTools: process.env.NODE_ENV !== "production",
 });
 
-setupListeners(store.dispatch);
+// setupListeners(store.dispatch);
 
 export const persistedStore = persistStore(store);
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
+// // Infer the `RootState` and `AppDispatch` types from the store itself
+// export type RootState = ReturnType<typeof store.getState>;
+// export type AppStore = typeof store;
+// // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+// export type AppDispatch = typeof store.dispatch;
+
 export type RootState = ReturnType<typeof store.getState>;
-export type AppStore = typeof store;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

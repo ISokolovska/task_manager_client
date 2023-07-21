@@ -1,7 +1,13 @@
 export interface IUser {
-  id: number;
   email: string;
   role: string;
+  id: string;
+  // isLoggedIn: boolean;
+}
+
+export interface IGenericResponse {
+  status: string;
+  message: string;
 }
 
 export interface RegisterData {
@@ -24,9 +30,9 @@ export interface MessageResponse {
   message: string;
 }
 
-// export interface UserDataResponse {
-//   data: IUser;
-// }
+export interface UserDataResponse {
+  data: IUser;
+}
 
 // export type Option = {
 //   label: string;

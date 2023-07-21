@@ -1,42 +1,43 @@
-// import routes from "./routes/routes";
-// import { useRoutes } from "react-router-dom";
-
-// const App = () => {
-//   const content = useRoutes(routes);
-//   return content;
-// };
-// export default App;
-
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { CssBaseline } from "@mui/material";
+import Layout from "./components/Layout/layout";
+import RequireUser from "./components/requireUser";
 
-import MainLayout from "./layout/MainLayout";
-import LoadingScreen from "./components/LoadingScreen";
-import NotFound from "./pages/NotFound";
-
-const Login = React.lazy(() => import("./pages/auth/LoginPage"));
-const Register = React.lazy(() => import("./pages/auth/RegisterPage"));
-const Home = React.lazy(() => import("./pages/home/HomePage"));
-const Categories = React.lazy(() => import("./pages/category/CategoryPage"));
-const Tasks = React.lazy(() => import("./pages/task/TaskPage"));
+const LoginPage = React.lazy(() => import("./pages/login.page"));
+const RegisterPage = React.lazy(() => import("./pages/register.page"));
+const HomePage = React.lazy(() => import("./pages/home.page"));
+const CategoryPage = React.lazy(() => import("./pages/category.page"));
+const TaskPage = React.lazy(() => import("./pages/task.page"));
+const AdminPage = React.lazy(() => import("./pages/admin.page"));
+const UnauthorizePage = React.lazy(() => import("./pages/unauthorize.page"));
 
 const App = () => {
   return (
-    <Suspense fallback={<LoadingScreen />}>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="category" element={<Categories />} />
-          <Route path="task" element={<Tasks />} />
+    <>
+      <CssBaseline />
+      <ToastContainer />
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            {/* Private Route */}
+            <Route element={<RequireUser allowedRoles={["user", "admin"]} />}>
+              <Route path="categories" element={<CategoryPage />} />
+              <Route path="tasks" element={<TaskPage />} />
+            </Route>
+            <Route element={<RequireUser allowedRoles={["admin"]} />}>
+              <Route path="admin" element={<AdminPage />} />
+            </Route>
+            <Route path="unauthorized" element={<UnauthorizePage />} />
+          </Route>
 
-          {/* <Route element={<PublicRoute />}> */}
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          {/* </Route> */}
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </Suspense>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 
