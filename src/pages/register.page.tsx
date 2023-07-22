@@ -110,7 +110,7 @@ const LinkItem = styled(Link)`
 `;
 
 const registerSchema = object({
-  name: string().min(1, "Full name is required").max(100),
+  // name: string().min(1, "Full name is required").max(100),
   email: string()
     .min(1, "Email address is required")
     .email("Email Address is invalid"),
@@ -146,7 +146,7 @@ const RegisterPage = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User registered successfully");
-      navigate("/verifyemail");
+      navigate("/categories");
     }
 
     if (isError) {
@@ -168,14 +168,19 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
+      // reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {
+  const onSubmitHandler: SubmitHandler<RegisterInput> = async (values) => {
     // ? Executing the RegisterUser Mutation
-    registerUser(values);
+    // console.log(values);
+    try {
+      await registerUser(values);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

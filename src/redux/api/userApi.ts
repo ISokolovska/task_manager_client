@@ -36,12 +36,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setUser } from "../features/auth/userSlice";
 import { IUser } from "../../types/user";
 
-const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT as string;
-
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}/api/users/`,
+    baseUrl: `${process.env.REACT_APP_BASE_URL}/api/users/`,
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({

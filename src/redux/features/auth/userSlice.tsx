@@ -3,7 +3,7 @@ import { IUser } from "../../../types/user";
 
 interface IUserState {
   user: IUser | null;
-  // token: string | null;
+  token: string | null;
   // isLoggedIn: boolean;
 }
 
@@ -20,8 +20,7 @@ interface IUserState {
 
 export const initialState: IUserState = {
   user: null,
-  // token: null,
-  // isLoggedIn: false,
+  token: null,
 };
 
 export const userSlice = createSlice({
@@ -41,9 +40,9 @@ export const userSlice = createSlice({
     //   state.user = user;
     //   state.token = token;
     // },
-    // setToken: (state, action: PayloadAction<string>) => {
-    //   state.token = action.payload;
-    // },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+    },
     // setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
     //   state.isLoggedIn = action.payload;
     // },
@@ -52,6 +51,6 @@ export const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { logout, setUser } = userSlice.actions;
+export const { logout, setUser, setToken } = userSlice.actions;
 
 // export const selectCurrentUser = (state: RootState) => state.auth.user;

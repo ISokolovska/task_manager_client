@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICategory } from "../../types/category";
-import { BASE_URL } from "../utils/apiUrl";
 
 type CategoriesResponse = ICategory[];
 
 // Define a service using a base URL and expected endpoints
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_BASE_URL}` }),
   tagTypes: ["categories"],
   endpoints: (builder) => ({
     getCategories: builder.query<CategoriesResponse, void>({

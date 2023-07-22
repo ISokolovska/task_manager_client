@@ -1,13 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ITask } from "../../types/task";
-import { BASE_URL } from "../utils/apiUrl";
 
 type TasksResponse = ITask[];
 
 // Define a service using a base URL and expected endpoints
 export const taskApi = createApi({
   reducerPath: "taskApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_BASE_URL}` }),
   tagTypes: ["tasks"],
   endpoints: (builder) => ({
     getTasks: builder.query<TasksResponse, void>({

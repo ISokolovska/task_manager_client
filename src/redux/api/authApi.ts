@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { RootState } from "../store";
-import { BASE_URL } from "../utils/apiUrl";
+
 import {
   IGenericResponse,
   // LoginRequest,
@@ -12,7 +12,7 @@ import {
 // export const authApi = createApi({
 //   reducerPath: "authApi",
 //   baseQuery: fetchBaseQuery({
-//     baseUrl: `${BASE_URL}`,
+//     baseUrl: `${REACT_APP_BASE_URL}`,
 //     prepareHeaders: (headers, { getState }) => {
 //       // By default, if we have a token in the store, let's use that for authenticated requests
 //       const { token } = (getState() as RootState).userState;
@@ -66,42 +66,41 @@ import { userApi } from "../api/userApi";
 
 import { LoginInput } from "../../pages/login.page";
 import { RegisterInput } from "../../pages/register.page";
+import { IServerResponse } from "./interfaces/server-responce";
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}/api/auth/`,
+    baseUrl: `${process.env.REACT_APP_BASE_URL}/auth`,
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation<IGenericResponse, RegisterInput>({
       query(data) {
         return {
-          url: "register",
+          url: "/signup",
           method: "POST",
           body: data,
         };
       },
     }),
-    loginUser: builder.mutation<
-      { access_token: string; status: string },
-      LoginInput
-    >({
-      query(data) {
-        return {
-          url: "login",
-          method: "POST",
-          body: data,
-          credentials: "include",
-        };
-      },
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        console.log(args);
-        try {
-          await queryFulfilled;
-          await dispatch(userApi.endpoints.getMe.initiate(null));
-        } catch (error) {}
-      },
-    }),
+    loginUser: builder.mutation<IServerResponse<{ token: string }>, LoginInput>(
+      {
+        query(data) {
+          return {
+            url: "/signin",
+            method: "POST",
+            body: data,
+          };
+        },
+        // async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        //   console.log(args);
+        //   try {
+        //     await queryFulfilled;
+        //     await dispatch(userApi.endpoints.getMe.initiate(null));
+        //   } catch (error) {}
+        // },
+      }
+    ),
     // verifyEmail: builder.mutation<
     //   IGenericResponse,
     //   { verificationCode: string }
@@ -116,7 +115,7 @@ export const authApi = createApi({
     logoutUser: builder.mutation<void, void>({
       query() {
         return {
-          url: "logout",
+          url: "/logout",
           credentials: "include",
         };
       },

@@ -1,5 +1,6 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-// import { setupListeners } from "@reduxjs/toolkit/query";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import { combineReducers, compose, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,
@@ -16,12 +17,11 @@ import { categoryApi } from "./api/categoryApi";
 import { taskApi } from "./api/taskApi";
 import userReducer from "../redux/features/auth/userSlice";
 import { userApi } from "./api/userApi";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const persistConfig = {
   key: "user",
   storage,
-  whitelist: ["token", "isLoggedIn"],
+  whitelist: ["token"],
 };
 
 const rootReducer = combineReducers({
@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  devTools: process.env.NODE_ENV !== "development",
+  devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -48,7 +48,7 @@ export const store = configureStore({
     ]),
 });
 
-// setupListeners(store.dispatch);
+setupListeners(store.dispatch);
 
 export const persistedStore = persistStore(store);
 

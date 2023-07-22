@@ -88,6 +88,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
 import { useLoginUserMutation } from "../redux/api/authApi";
+import { setToken } from "../redux/features/auth/userSlice";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -127,13 +128,14 @@ const LoginPage = () => {
   });
 
   // ? API Login Mutation
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
+  const [loginUser, { isLoading, isError, error, isSuccess, data: response }] =
     useLoginUserMutation();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = ((location.state as any)?.from.pathname as string) || "/profile";
+  const from =
+    ((location.state as any)?.from.pathname as string) || "/categories";
 
   const {
     reset,
@@ -141,26 +143,35 @@ const LoginPage = () => {
     formState: { isSubmitSuccessful },
   } = methods;
 
+  const onSubmitHandler: SubmitHandler<LoginInput> = async (values) => {
+    // ? Executing the loginUser Mutation
+    try {
+      await loginUser(values);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("You successfully logged in");
       navigate(from);
     }
-    if (isError) {
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error((error as any).data.message, {
-          position: "top-right",
-        });
-      }
-    }
+    // if (isError) {
+    //   if (Array.isArray((error as any).data.error)) {
+    //     (error as any).data.error.forEach((el: any) =>
+    //       toast.error(el.message, {
+    //         position: "top-right",
+    //       })
+    //     );
+    //   } else {
+    //     toast.error((error as any).data.message, {
+    //       position: "top-right",
+    //     });
+    //   }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, isSuccess]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -169,10 +180,12 @@ const LoginPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<LoginInput> = (values) => {
-    // ? Executing the loginUser Mutation
-    loginUser(values);
-  };
+  useEffect(() => {
+    if (response?.data) {
+      setToken(response.data?.token);
+      console.log(response.data?.token);
+    }
+  }, [response]);
 
   return (
     <Container

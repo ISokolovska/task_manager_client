@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "@types/nprogress": "^0.2.0"
+    "@types/nprogress": "^0.2.0",
+    "redux-devtools-extension": "^2.13.9"
   }
 }
