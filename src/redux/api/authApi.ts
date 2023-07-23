@@ -92,13 +92,13 @@ export const authApi = createApi({
             body: data,
           };
         },
-        // async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        //   console.log(args);
-        //   try {
-        //     await queryFulfilled;
-        //     await dispatch(userApi.endpoints.getMe.initiate(null));
-        //   } catch (error) {}
-        // },
+        //   async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        //     console.log(args);
+        //     try {
+        //       await queryFulfilled;
+        //       await dispatch(userApi.endpoints.getMe.initiate(null));
+        //     } catch (error) {}
+        //   },
       }
     ),
     // verifyEmail: builder.mutation<

@@ -6,21 +6,23 @@ type CategoriesResponse = ICategory[];
 // Define a service using a base URL and expected endpoints
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_BASE_URL}` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.REACT_APP_BASE_URL}`,
+  }),
   tagTypes: ["categories"],
   endpoints: (builder) => ({
     getCategories: builder.query<CategoriesResponse, void>({
-      query: () => "categories",
+      query: () => "/categories",
       providesTags: ["categories"],
     }),
 
     getCategoryById: builder.query<ICategory, number>({
-      query: (id) => `categories/${id}`,
+      query: (id) => `/categories/${id}`,
       providesTags: ["categories"],
     }),
 
     addCategory: builder.mutation<ICategory, Partial<ICategory>>({
-      query: (body) => ({ url: "categories", method: "POST", body }),
+      query: (body) => ({ url: "/categories", method: "POST", body }),
       invalidatesTags: ["categories"],
     }),
 
@@ -29,7 +31,7 @@ export const categoryApi = createApi({
       Pick<ICategory, "id"> & Partial<ICategory>
     >({
       query: ({ id, ...patch }) => ({
-        url: `categories/${id}`,
+        url: `/categories/${id}`,
         method: "PUT",
         body: patch,
       }),

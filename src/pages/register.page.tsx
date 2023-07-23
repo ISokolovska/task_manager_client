@@ -146,29 +146,18 @@ const RegisterPage = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User registered successfully");
-      navigate("/categories");
+      navigate("/login");
     }
 
     if (isError) {
-      console.log(error);
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error((error as any).data.message, {
-          position: "top-right",
-        });
-      }
+      toast.error("This user already exists");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      // reset();
+      reset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);

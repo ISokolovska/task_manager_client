@@ -89,6 +89,7 @@ import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
 import { useLoginUserMutation } from "../redux/api/authApi";
 import { setToken } from "../redux/features/auth/userSlice";
+import { useAppDispatch } from "../redux/store";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -126,7 +127,7 @@ const LoginPage = () => {
   const methods = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
   });
-
+  const dispatch = useAppDispatch();
   // ? API Login Mutation
   const [loginUser, { isLoading, isError, error, isSuccess, data: response }] =
     useLoginUserMutation();
@@ -134,8 +135,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from =
-    ((location.state as any)?.from.pathname as string) || "/categories";
+  const from = ((location.state as any)?.from.pathname as string) || "/profile";
 
   const {
     reset,
@@ -157,19 +157,9 @@ const LoginPage = () => {
       toast.success("You successfully logged in");
       navigate(from);
     }
-    // if (isError) {
-    //   if (Array.isArray((error as any).data.error)) {
-    //     (error as any).data.error.forEach((el: any) =>
-    //       toast.error(el.message, {
-    //         position: "top-right",
-    //       })
-    //     );
-    //   } else {
-    //     toast.error((error as any).data.message, {
-    //       position: "top-right",
-    //     });
-    //   }
-    // }
+    if (isError) {
+      toast.error("Incorrect login or password");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isSuccess]);
 
@@ -181,11 +171,11 @@ const LoginPage = () => {
   }, [isSubmitSuccessful]);
 
   useEffect(() => {
-    if (response?.data) {
-      setToken(response.data?.token);
-      console.log(response.data?.token);
+    if (response?.data && response.data?.token) {
+      dispatch(setToken(response.data?.token));
+      console.log(123, response.data?.token);
     }
-  }, [response]);
+  }, [dispatch, response]);
 
   return (
     <Container

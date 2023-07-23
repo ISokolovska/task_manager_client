@@ -4,7 +4,7 @@ import { IUser } from "../../../types/user";
 interface IUserState {
   user: IUser | null;
   token: string | null;
-  // isLoggedIn: boolean;
+  isLoggedIn: boolean;
 }
 
 // export const initialState: IUserState = {
@@ -21,6 +21,7 @@ interface IUserState {
 export const initialState: IUserState = {
   user: null,
   token: null,
+  isLoggedIn: false,
 };
 
 export const userSlice = createSlice({
@@ -31,21 +32,12 @@ export const userSlice = createSlice({
     setUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
     },
-    // setCredentials: (
-    //   state,
-    //   {
-    //     payload: { user, token },
-    //   }: PayloadAction<{ user: IUser; token: string }>
-    // ) => {
-    //   state.user = user;
-    //   state.token = token;
-    // },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
-    // setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
-    //   state.isLoggedIn = action.payload;
-    // },
+    setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
+    },
   },
 });
 
