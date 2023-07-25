@@ -62,8 +62,6 @@ import {
 //   // useLogOutUserMutation,
 // } = authApi;
 
-import { userApi } from "../api/userApi";
-
 import { LoginInput } from "../../pages/login.page";
 import { RegisterInput } from "../../pages/register.page";
 import { IServerResponse } from "./interfaces/server-responce";
@@ -112,20 +110,20 @@ export const authApi = createApi({
     //     };
     //   },
     // }),
-    logoutUser: builder.mutation<void, void>({
-      query() {
-        return {
-          url: "/logout",
-          credentials: "include",
-        };
-      },
-    }),
+    // logoutUser: builder.mutation<void, void>({
+    //   query() {
+    //     return {
+    //       url: "/logout",
+    //       // credentials: "include",
+    //     };
+    //   },
+    // }),
   }),
 });
 
 export const {
   useLoginUserMutation,
   useRegisterUserMutation,
-  useLogoutUserMutation,
+  // useLogoutUserMutation,
   // useVerifyEmailMutation,
 } = authApi;

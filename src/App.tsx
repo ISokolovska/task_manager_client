@@ -8,7 +8,7 @@ import Layout from "./components/Layout/layout";
 import RequireUser from "./components/requireUser";
 import FullScreenLoader from "./components/Loader/FullScreenLoader";
 
-import { logout, setUser } from "./redux/features/auth/userSlice";
+import { logout } from "./redux/features/auth/userSlice";
 import { persistedStore, useAppDispatch, useAppSelector } from "./redux/store";
 import { getTokenSelector } from "./redux/features/auth/userSelectors";
 import { useGetMeQuery } from "./redux/api/userApi";

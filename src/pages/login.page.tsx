@@ -129,7 +129,7 @@ const LoginPage = () => {
   });
   const dispatch = useAppDispatch();
   // ? API Login Mutation
-  const [loginUser, { isLoading, isError, error, isSuccess, data: response }] =
+  const [loginUser, { isLoading, isError, isSuccess, data: response }] =
     useLoginUserMutation();
 
   const navigate = useNavigate();
@@ -222,7 +222,7 @@ const LoginPage = () => {
             component="form"
             onSubmit={handleSubmit(onSubmitHandler)}
             noValidate
-            autoComplete="off"
+            // autoComplete="off"
             maxWidth="27rem"
             width="100%"
             sx={{

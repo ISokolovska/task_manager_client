@@ -1,63 +1,34 @@
-import {
-  AppBar,
-  //   Avatar,
-  Box,
-  Container,
-  //   IconButton,
-  Toolbar,
-  //   Tooltip,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../redux/store";
-import { useLogoutUserMutation } from "../../redux/api/authApi";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { LoadingButton as _LoadingButton } from "@mui/lab";
+import { Modal } from "antd";
+import { AppBar, Box, Container, Toolbar } from "@mui/material";
 
-const LoadingButton = styled(_LoadingButton)`
-  padding: 0.4rem;
-  background-color: #f9d13e;
-  color: #2363eb;
-  font-weight: 500;
-
-  &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
-  }
-`;
+import {
+  persistedStore,
+  useAppDispatch,
+  useAppSelector,
+} from "../../redux/store";
+import { logout } from "../../redux/features/auth/userSlice";
+import { LoadingButton } from "./Header.style";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.userState.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const [logoutUser, { isLoading, isSuccess, error, isError }] =
-    useLogoutUserMutation();
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
-  useEffect(() => {
-    if (isSuccess) {
-      // window.location.href = '/login';
-      navigate("/login");
-    }
+  const handleOk = () => {
+    setIsModalOpen(false);
+    persistedStore.purge();
+    dispatch(logout());
+  };
 
-    if (isError) {
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error((error as any).data.message, {
-          position: "top-right",
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
-
-  const onLogoutHandler = async () => {
-    logoutUser();
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -79,13 +50,21 @@ const Header = () => {
               </>
             )}
             {user && (
-              <LoadingButton
-                sx={{ backgroundColor: "#eee" }}
-                onClick={onLogoutHandler}
-                loading={isLoading}
-              >
-                Logout
-              </LoadingButton>
+              <>
+                <LoadingButton
+                  sx={{ backgroundColor: "#eee" }}
+                  onClick={showModal}
+                >
+                  Logout
+                </LoadingButton>
+                <Modal
+                  centered
+                  bodyStyle={{ height: 30 }}
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                ></Modal>
+              </>
             )}
             {user && user?.role === "admin" && (
               <LoadingButton
@@ -95,16 +74,6 @@ const Header = () => {
                 Admin
               </LoadingButton>
             )}
-            {/* <Box sx={{ ml: 4 }}>
-              <Tooltip
-                title="Post settings"
-                onClick={() => navigate("/profile")}
-              >
-                <IconButton sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-            </Box> */}
           </Box>
         </Toolbar>
       </Container>
