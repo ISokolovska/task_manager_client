@@ -1,116 +1,23 @@
-// import type { FC } from "react";
-// import { Link as RouterLink } from "react-router-dom";
-// import {
-//   Box,
-//   Card,
-//   CardContent,
-//   Container,
-//   Divider,
-//   Link,
-//   Typography,
-// } from "@mui/material";
-// import Registration from "../../components/Auth/Registration";
-
-// const RegisterPage: FC = () => {
-//   return (
-//     <Box
-//       sx={{
-//         backgroundColor: "background.default",
-//         display: "flex",
-//         flexDirection: "column",
-//         minHeight: "100vh",
-//       }}
-//     >
-//       <Container maxWidth="sm" sx={{ py: "80px" }}>
-//         <Box
-//           sx={{
-//             mb: 8,
-//             display: "flex",
-//             justifyContent: "center",
-//           }}
-//         ></Box>
-//         <Card>
-//           <CardContent
-//             sx={{
-//               display: "flex",
-//               flexDirection: "column",
-//               p: 4,
-//             }}
-//           >
-//             <Box
-//               sx={{
-//                 alignItems: "center",
-//                 display: "flex",
-//                 justifyContent: "space-between",
-//                 mb: 3,
-//               }}
-//             >
-//               <div>
-//                 <Typography color="textPrimary" gutterBottom variant="h4">
-//                   Register
-//                 </Typography>
-//               </div>
-//             </Box>
-//             <Box
-//               sx={{
-//                 flexGrow: 1,
-//                 mt: 3,
-//               }}
-//             >
-//               <Registration />
-//             </Box>
-//             <Divider sx={{ my: 3 }} />
-//             <Link
-//               color="textSecondary"
-//               component={RouterLink}
-//               to="/authentication/login"
-//               variant="body2"
-//             >
-//               Having an account
-//             </Link>
-//           </CardContent>
-//         </Card>
-//       </Container>
-//     </Box>
-//   );
-// };
-
-// export default RegisterPage;
-
-import { Box, Container, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { Box, Container, Typography } from "@mui/material";
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "../components/FormInput/FormInput";
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../redux/api/authApi";
-import { LoadingButton as _LoadingButton } from "@mui/lab";
-import { toast } from "react-toastify";
+import FormInput from "../components/FormInput/FormInput";
+import { LinkItem, LoadingButton } from "../components/Header/Header.style";
 
-const LoadingButton = styled(_LoadingButton)`
-  padding: 0.6rem 0;
-  background-color: #f9d13e;
-  color: #2363eb;
-  font-weight: 500;
-
-  &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
-  }
-`;
-
-const LinkItem = styled(Link)`
-  text-decoration: none;
-  color: #2363eb;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+// const LinkItem = styled(Link)`
+//   text-decoration: none;
+//   color: #2363eb;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// `;
 
 const registerSchema = object({
-  // name: string().min(1, "Full name is required").max(100),
   email: string()
     .min(1, "Email address is required")
     .email("Email Address is invalid"),
@@ -118,10 +25,6 @@ const registerSchema = object({
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
-  //   passwordConfirm: string().min(1, "Please confirm your password"),
-  // }).refine((data) => data.password === data.passwordConfirm, {
-  //   path: ["passwordConfirm"],
-  //   message: "Passwords do not match",
 });
 
 export type RegisterInput = TypeOf<typeof registerSchema>;
@@ -222,14 +125,9 @@ const RegisterPage = () => {
               borderRadius: 2,
             }}
           >
-            {/* <FormInput name="name" label="Full Name" /> */}
             <FormInput name="email" label="Email Address" type="email" />
             <FormInput name="password" label="Password" type="password" />
-            {/* <FormInput
-              name="passwordConfirm"
-              label="Confirm Password"
-              type="password"
-            /> */}
+
             <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
               Already have an account?{" "}
               <LinkItem to="/login">Login Here</LinkItem>
@@ -237,7 +135,7 @@ const RegisterPage = () => {
 
             <LoadingButton
               variant="contained"
-              sx={{ mt: 1 }}
+              sx={{ mt: 1, padding: "0.6rem 0" }}
               fullWidth
               disableElevation
               type="submit"

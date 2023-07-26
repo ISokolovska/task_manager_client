@@ -1,115 +1,15 @@
-// import type { FC } from "react";
-// import { Link as RouterLink } from "react-router-dom";
-// import {
-//   Box,
-//   Card,
-//   CardContent,
-//   Container,
-//   Divider,
-//   Link,
-//   Typography,
-// } from "@mui/material";
-// import Login from "../../components/Auth/Login";
-
-// const LoginPage: FC = () => {
-//   return (
-//     <Box
-//       sx={{
-//         backgroundColor: "background.default",
-//         display: "flex",
-//         flexDirection: "column",
-//         minHeight: "100vh",
-//       }}
-//     >
-//       <Container maxWidth="sm" sx={{ py: "80px" }}>
-//         <Box
-//           sx={{
-//             display: "flex",
-//             justifyContent: "center",
-//             mb: 8,
-//           }}
-//         ></Box>
-//         <Card>
-//           <CardContent
-//             sx={{
-//               display: "flex",
-//               flexDirection: "column",
-//               p: 4,
-//             }}
-//           >
-//             <Box
-//               sx={{
-//                 alignItems: "center",
-//                 display: "flex",
-//                 justifyContent: "space-between",
-//                 mb: 3,
-//               }}
-//             >
-//               <div>
-//                 <Typography color="textPrimary" gutterBottom variant="h4">
-//                   Log in
-//                 </Typography>
-//               </div>
-//             </Box>
-//             <Box
-//               sx={{
-//                 flexGrow: 1,
-//                 mt: 3,
-//               }}
-//             >
-//               <Login />
-//             </Box>
-//             <Divider sx={{ my: 3 }} />
-//             <Link
-//               color="textSecondary"
-//               component={RouterLink}
-//               to="/authentication/register"
-//               variant="body2"
-//             >
-//               Create new account
-//             </Link>
-//           </CardContent>
-//         </Card>
-//       </Container>
-//     </Box>
-//   );
-// };
-
-// export default LoginPage;
-
-import { Box, Container, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Box, Container, Typography } from "@mui/material";
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "../components/FormInput/FormInput";
-import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LoadingButton as _LoadingButton } from "@mui/lab";
-import { toast } from "react-toastify";
 import { useLoginUserMutation } from "../redux/api/authApi";
 import { setToken } from "../redux/features/auth/userSlice";
 import { useAppDispatch } from "../redux/store";
-
-const LoadingButton = styled(_LoadingButton)`
-  padding: 0.6rem 0;
-  background-color: #f9d13e;
-  color: #2363eb;
-  font-weight: 500;
-
-  &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
-  }
-`;
-
-const LinkItem = styled(Link)`
-  text-decoration: none;
-  color: #2363eb;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+import { LinkItem, LoadingButton } from "../components/Header/Header.style";
+import FormInput from "../components/FormInput/FormInput";
 
 const loginSchema = object({
   email: string()
@@ -135,7 +35,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = ((location.state as any)?.from.pathname as string) || "/profile";
+  const from =
+    ((location.state as any)?.from.pathname as string) || "/categories";
 
   const {
     reset,
@@ -240,7 +141,7 @@ const LoginPage = () => {
 
             <LoadingButton
               variant="contained"
-              sx={{ mt: 1 }}
+              sx={{ mt: 1, padding: "0.6rem 0" }}
               fullWidth
               disableElevation
               type="submit"

@@ -7,7 +7,7 @@ import { persistedStore, store } from "./redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "./styles/theme";
+import { theme } from "./expanded-theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

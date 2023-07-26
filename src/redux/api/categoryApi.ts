@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICategory } from "../../types/category";
+import { RootState } from "../store";
 
 type CategoriesResponse = ICategory[];
 
@@ -8,10 +9,22 @@ export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_BASE_URL}`,
+    prepareHeaders: (headers, { getState }) => {
+      // By default, if we have a token in the store, let's use that for authenticated requests
+      const { token } = (getState() as RootState).userState;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ["categories"],
   endpoints: (builder) => ({
-    getCategories: builder.query<CategoriesResponse, void>({
+    getCategories: builder.query<
+      CategoriesResponse,
+      // void,
+      { token: string | null }
+    >({
       query: () => "/categories",
       providesTags: ["categories"],
     }),

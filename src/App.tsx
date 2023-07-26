@@ -8,10 +8,11 @@ import Layout from "./components/Layout/layout";
 import RequireUser from "./components/requireUser";
 import FullScreenLoader from "./components/Loader/FullScreenLoader";
 
-import { logout } from "./redux/features/auth/userSlice";
+import { logout, setUser } from "./redux/features/auth/userSlice";
 import { persistedStore, useAppDispatch, useAppSelector } from "./redux/store";
 import { getTokenSelector } from "./redux/features/auth/userSelectors";
 import { useGetMeQuery } from "./redux/api/userApi";
+// import { useGetMeQuery } from "./redux/api/userApi";
 
 const LoginPage = React.lazy(() => import("./pages/login.page"));
 const RegisterPage = React.lazy(() => import("./pages/register.page"));
@@ -20,7 +21,7 @@ const CategoryPage = React.lazy(() => import("./pages/category.page"));
 const TaskPage = React.lazy(() => import("./pages/task.page"));
 const AdminPage = React.lazy(() => import("./pages/admin.page"));
 const UnauthorizePage = React.lazy(() => import("./pages/unauthorize.page"));
-const ProfilePage = React.lazy(() => import("./pages/profile.page"));
+// const ProfilePage = React.lazy(() => import("./pages/profile.page"));
 
 const App = () => {
   const isLoggedIn = useAppSelector(getTokenSelector);
@@ -56,8 +57,8 @@ const App = () => {
             {/* Private Route */}
             <Route element={<RequireUser allowedRoles={["user", "admin"]} />}>
               <Route path="categories" element={<CategoryPage />} />
+              {/* <Route path="profile" element={<ProfilePage />} /> */}
               <Route path="tasks" element={<TaskPage />} />
-              <Route path="profile" element={<ProfilePage />} />
             </Route>
             <Route element={<RequireUser allowedRoles={["admin"]} />}>
               <Route path="admin" element={<AdminPage />} />
