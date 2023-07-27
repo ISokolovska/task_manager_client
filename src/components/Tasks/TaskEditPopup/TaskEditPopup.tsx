@@ -1,6 +1,5 @@
 import React from "react";
-import ButtonCancel from "../../Button/ButtonCancel";
-import ButtonSave from "../../Button/ButtonSave";
+
 import { Field, Form } from "formik";
 
 // interface Values {
@@ -18,8 +17,6 @@ function TaskEditPopup() {
       <Field type="start_date" name="start_date" />
       <label htmlFor="end_date">end date</label>
       <Field type="end_date" name="end_date" />
-      <ButtonCancel />
-      <ButtonSave />
     </Form>
   );
 }

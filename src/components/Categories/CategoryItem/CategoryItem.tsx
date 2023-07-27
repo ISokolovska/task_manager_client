@@ -1,6 +1,4 @@
 import React from "react";
-import ButtonActions from "../../Button/ButtonActions";
-import ButtonMore from "../../Button/ButtonMore";
 import { ICategory } from "../../../types/category";
 
 interface CategoryItemProps {
@@ -13,8 +11,6 @@ const CategoryItem = (props: CategoryItemProps) => {
       <p>{props.category.name}</p>
       <p>Кількість tasks</p>
       {/* <p>{props.category.dateCreated}</p> */}
-      <ButtonActions />
-      <ButtonMore />
     </div>
   );
 };

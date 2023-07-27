@@ -1,9 +1,15 @@
 import React from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+// import { persistedStore } from "../redux/store";
 import CategoryList from "../components/Categories/CategoryList/CategoryList";
-import { LoadingButton } from "../components/Header/Header.style";
-// import { LoadingButton } from "../components/Header/Header.style";
+import CategoryAdd from "../components/Categories/CategoryAdd/CategoryAdd";
 
+// interface ICategoryProps {
+//   // setIsModalOpen: void;
+//   open: boolean;
+//   // handleClose?: any;
+//   // children: any;
+// }
 const CategoryPage = () => {
   return (
     <Container maxWidth="lg">
@@ -24,24 +30,7 @@ const CategoryPage = () => {
         >
           CategoryPage
         </Typography>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#eee",
-            "&:hover": { backgroundColor: "#ebc22c" },
-          }}
-        >
-          Add category
-        </Button>
-        <LoadingButton
-          sx={{
-            backgroundColor: "#eee",
-          }}
-
-          // onClick={showModal}
-        >
-          Add category
-        </LoadingButton>
+        <CategoryAdd />
       </Box>
 
       <CategoryList />

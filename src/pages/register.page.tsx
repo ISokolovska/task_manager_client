@@ -35,7 +35,7 @@ const RegisterPage = () => {
   });
 
   // ? Calling the Register Mutation
-  const [registerUser, { isLoading, isSuccess, error, isError }] =
+  const [registerUser, { isLoading, isSuccess, isError }] =
     useRegisterUserMutation();
 
   const navigate = useNavigate();

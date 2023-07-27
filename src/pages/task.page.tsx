@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
-import ButtonAdd from "../components/Button/ButtonAdd";
+
 import TaskList from "../components/Tasks/TaskList/TaskList";
+import { LoadingButton } from "../components/Header/Header.style";
+import { Modal } from "antd";
+import { persistedStore } from "../redux/store";
 
 const TaskPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  //  const dispatch = useAppDispatch();
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    persistedStore.purge();
+    //  dispatch(logout());
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     // <div>
     //   <h1>TaskPage</h1>
@@ -27,7 +46,23 @@ const TaskPage = () => {
           TaskPage
         </Typography>
       </Box>
-      <ButtonAdd />
+      <>
+        <LoadingButton
+          sx={{
+            backgroundColor: "#eee",
+          }}
+          onClick={showModal}
+        >
+          Add category
+        </LoadingButton>
+        <Modal
+          centered
+          bodyStyle={{ height: 30 }}
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        ></Modal>
+      </>
       <TaskList />
     </Container>
   );
