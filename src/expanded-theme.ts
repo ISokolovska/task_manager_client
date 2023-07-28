@@ -31,15 +31,12 @@ declare module "@mui/material/styles/createPalette" {
     // success: PaletteColor;
     // warning: PaletteColor;
   }
+}
 
-  // interface TypographyVariants {
-  //   poster: React.CSSProperties;
-  // }
-
-  // // allow configuration using `createTheme`
-  // interface TypographyVariantsOptions {
-  //   poster?: React.CSSProperties;
-  // }
+declare module "@mui/material/Button" {
+  interface ButtonPropsVariantOverrides {
+    outlined: true;
+  }
 }
 
 const colors = {
@@ -63,4 +60,32 @@ export const theme = createTheme({
   // typography: {
   //   fontWeightRegular: "500",
   // },
+  components: {
+    // Name of the component
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: "outlined" },
+          style: {
+            color: "#fff",
+            backgroundColor: "#1976d2",
+            fontWeight: "500",
+            fontSize: "0.875rem",
+            lineHeight: "1.75",
+            letterSpacing: "0.02857em",
+            textTransform: "uppercase",
+            ":hover": {
+              color: "#1976d2",
+            },
+          },
+        },
+        // {
+        //   props: { variant: "dashed", color: "secondary" },
+        //   style: {
+        //     // border: `4px dashed ${red[500]}`,
+        //   },
+        // },
+      ],
+    },
+  },
 });

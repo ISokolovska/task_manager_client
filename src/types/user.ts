@@ -1,7 +1,7 @@
 export interface IUser {
+  id: string;
   email: string;
   role: string;
-  id: string;
   // isLoggedIn: boolean;
 }
 
