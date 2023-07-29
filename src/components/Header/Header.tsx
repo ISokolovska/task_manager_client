@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
-import { AppBar, Box, Container, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Container, Toolbar } from "@mui/material";
 
 import {
   persistedStore,
@@ -38,15 +38,16 @@ const Header = () => {
           <Box display="flex" sx={{ ml: "auto" }}>
             {!user && (
               <>
-                <LoadingButton
+                <Button
+                  variant="contained"
                   sx={{ mr: 2 }}
                   onClick={() => navigate("/register")}
                 >
                   SignUp
-                </LoadingButton>
-                <LoadingButton onClick={() => navigate("/login")}>
+                </Button>
+                <Button variant="contained" onClick={() => navigate("/login")}>
                   Login
-                </LoadingButton>
+                </Button>
               </>
             )}
             {user && (

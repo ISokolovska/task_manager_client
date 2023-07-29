@@ -1,24 +1,16 @@
 import React, { useEffect } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
-// import { persistedStore } from "../redux/store";
-// import CategoryList from "../components/Categories/CategoryList/CategoryList";
-import CreateCategory from "../components/Categories/CreateCategory/CreateCategory";
-import { useGetAllCategoriesQuery } from "../redux/api/categoryApi";
 import { toast } from "react-toastify";
+import { Box, Container, Grid, Typography } from "@mui/material";
+import { useGetAllCategoriesQuery } from "../redux/api/categoryApi";
+import CreateCategory from "../components/Categories/CategoryCreatePopup/CategoryCreatePopup";
 import FullScreenLoader from "../components/Loader/FullScreenLoader";
 import CategoryItem from "../components/Categories/CategoryItem/CategoryItem";
 
-// interface ICategoryProps {
-//   // setIsModalOpen: void;
-//   open: boolean;
-//   // handleClose?: any;
-//   // children: any;
-// }
 const CategoryPage = () => {
   const {
     isLoading,
     isError,
-    // error,
+
     data: categories,
   } = useGetAllCategoriesQuery();
 
@@ -39,8 +31,11 @@ const CategoryPage = () => {
 
   return (
     <Container
-      maxWidth={false}
-      sx={{ backgroundColor: "#2363eb", height: "100vh" }}
+      sx={{
+        backgroundColor: "#fff",
+        height: "100vh",
+        paddingTop: "60px",
+      }}
     >
       <CreateCategory />
       {!categories?.data?.length ? (
@@ -54,7 +49,7 @@ const CategoryPage = () => {
           maxWidth="lg"
           sx={{
             margin: "0 auto",
-            pt: "5rem",
+            pt: "30px",
             gridAutoRows: "max-content",
           }}
         >
@@ -63,7 +58,6 @@ const CategoryPage = () => {
           ))}
         </Grid>
       )}
-      {/* <CategoryList /> */}
     </Container>
   );
 };

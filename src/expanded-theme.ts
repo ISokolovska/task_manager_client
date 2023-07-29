@@ -67,24 +67,36 @@ export const theme = createTheme({
         {
           props: { variant: "outlined" },
           style: {
-            color: "#fff",
-            backgroundColor: "#1976d2",
+            // color: "#fff",
+            // backgroundColor: "#1976d2",
+            width: "90px",
+            padding: "0.4rem",
             fontWeight: "500",
-            fontSize: "0.875rem",
-            lineHeight: "1.75",
-            letterSpacing: "0.02857em",
-            textTransform: "uppercase",
+            border: "1px solid #2363eb",
+            // fontSize: "0.875rem",
+            // lineHeight: "1.75",
+            // letterSpacing: "0.02857em",
+            // textTransform: "uppercase",
             ":hover": {
               color: "#1976d2",
             },
           },
         },
-        // {
-        //   props: { variant: "dashed", color: "secondary" },
-        //   style: {
-        //     // border: `4px dashed ${red[500]}`,
-        //   },
-        // },
+        {
+          props: { variant: "contained" },
+          style: {
+            width: "90px",
+            padding: "0.4rem",
+            color: "#2363eb",
+            backgroundColor: "#f9d13e",
+            fontWeight: 500,
+
+            "&:hover": {
+              backgroundColor: "#ebc22c",
+              transform: "translateY(-2px)",
+            },
+          },
+        },
       ],
     },
   },
