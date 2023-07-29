@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICategoryResponse } from "../../types/category";
+import { ICategoryRequest, ICategoryResponse } from "../../types/category";
 import { RootState } from "../store";
+import { IServerResponse } from "./interfaces/server-responce";
 
 // type CategoriesResponse = ICategory[];
 
@@ -38,42 +39,32 @@ export const categoryApi = createApi({
       query(id) {
         return {
           url: `/categories/${id}`,
-          // credentials: "include",
         };
       },
-      // providesTags: (result, error, id) => [{ type: "categories", id }],
+      providesTags: ["categories"],
     }),
-    getAllCategories: builder.query<ICategoryResponse[], void>({
-      query() {
-        return {
-          url: `/categories`,
-          // credentials: "include",
-        };
-      },
-      // providesTags: (result) =>
-      //   result
-      //     ? [
-      //         ...result.map(({ id }) => ({
-      //           type: "categories" as const,
-      //           id,
-      //         })),
-      //         { type: "categories", id: "LIST" },
-      //       ]
-      //     : [{ type: "categories", id: "LIST" }],
-      transformResponse: (results: {
-        data: { categories: ICategoryResponse[] };
-      }) => results.data.categories,
-    }),
+    getAllCategories: builder.query<IServerResponse<ICategoryResponse[]>, void>(
+      {
+        query() {
+          return {
+            url: `/categories`,
+          };
+        },
+        providesTags: ["categories"],
 
-    createCategory: builder.mutation<ICategoryResponse, FormData>({
+        // transformResponse: (results: {
+        //   data: { categories: ICategoryResponse[] };
+        // }) => results.data.categories,
+      }
+    ),
+
+    createCategory: builder.mutation<ICategoryResponse, ICategoryRequest>({
       query: (category) => ({
         url: "/categories",
         method: "POST",
         body: category,
       }),
       invalidatesTags: ["categories"],
-      transformResponse: (result: { data: { category: ICategoryResponse } }) =>
-        result.data.category,
     }),
 
     updateCategory: builder.mutation<
@@ -84,27 +75,21 @@ export const categoryApi = createApi({
         return {
           url: `/categories/${id}`,
           method: "PATCH",
-          // credentials: 'include',
+
           body: category,
         };
       },
-      // invalidatesTags: (result, error, { id }) =>
-      //   result ? ["categories"] : [{ type: "categories", id }],
-      transformResponse: (response: {
-        data: { category: ICategoryResponse };
-      }) => response.data.category,
+      invalidatesTags: ["categories"],
     }),
 
-    deleteCategory: builder.mutation<ICategoryResponse, string>({
+    deleteCategory: builder.mutation<ICategoryResponse, number | string>({
       query(id) {
         return {
           url: `/categories/${id}`,
           method: "DELETE",
-          // credentials: "include",
         };
       },
       invalidatesTags: ["categories"],
-      // invalidatesTags: [{ type: "categories", id }],
     }),
 
     // updateCategory: builder.mutation<

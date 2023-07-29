@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react";
 import { ICategoryResponse } from "../../../types/category";
 import { useDeleteCategoryMutation } from "../../../redux/api/categoryApi";
 import { toast } from "react-toastify";
+import dayjs from "dayjs";
 import {
   Box,
   Card,
@@ -16,7 +17,7 @@ interface ICategoryItemProps {
 }
 const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
   // const [openPostModal, setOpenPostModal] = useState(false);
-  const [deleteCategory, { isLoading, error, isSuccess, isError }] =
+  const [deleteCategory, { isLoading, isSuccess, isError }] =
     useDeleteCategoryMutation();
 
   useEffect(() => {
@@ -28,9 +29,9 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
       toast.success("Sorry, we have some problem (Post)");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, isSuccess, isError]);
 
-  const onDeleteHandler = (id: string) => {
+  const onDeleteHandler = (id: number) => {
     if (window.confirm("Are you sure")) {
       deleteCategory(id);
     }
@@ -70,7 +71,7 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
                   borderRadius: 1,
                   mr: "1rem",
                 }}
-              >
+              >.
                 {category.name}
               </Typography> */}
               <Typography
@@ -79,7 +80,7 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
                   color: "#ffa238",
                 }}
               >
-                {/* {format(parseISO(category.dateCreated), "PPP")} */}
+                {dayjs(category.dateCreated).format("DD.MM.YYYY")}
               </Typography>
             </Box>
           </CardContent>

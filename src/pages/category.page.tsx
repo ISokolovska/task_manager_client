@@ -29,39 +29,21 @@ const CategoryPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
+  useEffect(() => {
+    console.log(categories);
+  }, [categories]);
+
   if (isLoading) {
     return <FullScreenLoader />;
   }
-  return (
-    // <Container maxWidth="lg">
-    //   <Box
-    //     sx={{
-    //       backgroundColor: "#ece9e9",
-    //       mt: "2rem",
-    //       height: "15rem",
-    //       display: "flex",
-    //       alignItems: "center",
-    //       justifyContent: "center",
-    //     }}
-    //   >
-    //     <Typography
-    //       variant="h2"
-    //       component="h1"
-    //       sx={{ color: "#1f1e1e", fontWeight: 500 }}
-    //     >
-    //       CategoryPage
-    //     </Typography>
-    //     <CreateCategory setOpenCategoryModal={() => console.log("open")} />
-    //   </Box>
 
-    //   <CategoryList />
-    // </Container>
+  return (
     <Container
       maxWidth={false}
       sx={{ backgroundColor: "#2363eb", height: "100vh" }}
     >
-      <CreateCategory setOpenCategoryModal={() => console.log("open")} />
-      {categories?.length === 0 ? (
+      <CreateCategory />
+      {!categories?.data?.length ? (
         <Box maxWidth="sm" sx={{ mx: "auto", py: "5rem" }}>
           <Typography>No categories at the moment</Typography>
         </Box>
@@ -76,7 +58,7 @@ const CategoryPage = () => {
             gridAutoRows: "max-content",
           }}
         >
-          {categories?.map((category) => (
+          {categories?.data?.map((category) => (
             <CategoryItem key={category.id} category={category} />
           ))}
         </Grid>

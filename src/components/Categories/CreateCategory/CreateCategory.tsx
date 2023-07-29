@@ -131,9 +131,9 @@ import { toast } from "react-toastify";
 import { useCreateCategoryMutation } from "../../../redux/api/categoryApi";
 import { LoadingButton } from "../../Header/Header.style";
 
-export interface ICreateCategoryProp {
-  setOpenCategoryModal: (openCategoryModal: boolean) => void;
-}
+// export interface ICreateCategoryProp {
+//   setOpenCategoryModal: (openCategoryModal: boolean) => void;
+// }
 
 const createCategorySchema = object({
   name: string().nonempty("Name is required"),
@@ -144,9 +144,9 @@ const createCategorySchema = object({
 
 export type ICreateCategory = TypeOf<typeof createCategorySchema>;
 
-const CreateCategory: FC<ICreateCategoryProp> = ({ setOpenCategoryModal }) => {
+const CreateCategory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [createCategory, { isLoading, isError, error, isSuccess }] =
+  const [createCategory, { isLoading, isError, isSuccess }] =
     useCreateCategoryMutation();
 
   const methods = useForm<ICreateCategory>({
@@ -161,17 +161,25 @@ const CreateCategory: FC<ICreateCategoryProp> = ({ setOpenCategoryModal }) => {
     setIsModalOpen(false);
   };
 
+  const onSubmitHandler: SubmitHandler<ICreateCategory> = (values) => {
+    // const formData = new FormData();
+
+    // // formData.append("image", values.image);
+    // formData.append("data", JSON.stringify(values));
+    createCategory(values);
+    // .unwrap();
+  };
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Category created successfully");
-      setOpenCategoryModal(false);
+      setIsModalOpen(false);
     }
-
+    console.log("isError", isError, "gdfgdsg", isSuccess);
     if (isError) {
       toast.error("Sorry, category not created");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isError, isSuccess]);
 
   useEffect(() => {
     if (methods.formState.isSubmitting) {
@@ -179,14 +187,6 @@ const CreateCategory: FC<ICreateCategoryProp> = ({ setOpenCategoryModal }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [methods.formState.isSubmitting]);
-
-  const onSubmitHandler: SubmitHandler<ICreateCategory> = (values) => {
-    const formData = new FormData();
-
-    // formData.append("image", values.image);
-    formData.append("data", JSON.stringify(values));
-    createCategory(formData);
-  };
 
   return (
     <>
