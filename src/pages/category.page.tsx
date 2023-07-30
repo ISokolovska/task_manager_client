@@ -2,17 +2,13 @@ import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useGetAllCategoriesQuery } from "../redux/api/categoryApi";
-import CreateCategory from "../components/Categories/CategoryCreatePopup/CategoryCreatePopup";
+
 import FullScreenLoader from "../components/Loader/FullScreenLoader";
 import CategoryItem from "../components/Categories/CategoryItem/CategoryItem";
+import CategoryCreatePopup from "../components/Categories/CategoryCreatePopup/CategoryCreatePopup";
 
 const CategoryPage = () => {
-  const {
-    isLoading,
-    isError,
-
-    data: categories,
-  } = useGetAllCategoriesQuery();
+  const { isLoading, isError, data: categories } = useGetAllCategoriesQuery();
 
   useEffect(() => {
     if (isError) {
@@ -24,7 +20,6 @@ const CategoryPage = () => {
   useEffect(() => {
     console.log(categories);
   }, [categories]);
-
   if (isLoading) {
     return <FullScreenLoader />;
   }
@@ -37,7 +32,7 @@ const CategoryPage = () => {
         paddingTop: "60px",
       }}
     >
-      <CreateCategory />
+      <CategoryCreatePopup />
       {!categories?.data?.length ? (
         <Box maxWidth="sm" sx={{ mx: "auto", py: "5rem" }}>
           <Typography>No categories at the moment</Typography>

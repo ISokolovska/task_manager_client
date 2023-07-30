@@ -10,7 +10,7 @@ import {
 import { useDeleteCategoryMutation } from "../../../redux/api/categoryApi";
 import { toast } from "react-toastify";
 
-interface CategoryItemProps {
+export interface CategoryItemProps {
   id: number;
 }
 
@@ -19,7 +19,7 @@ const CategoryDeletePopup = (props: CategoryItemProps) => {
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
 
-  const [deleteCategory, { isLoading, isSuccess, isError }] =
+  const [deleteCategory, { isSuccess, isError, isLoading }] =
     useDeleteCategoryMutation();
 
   const onDeleteHandler = (id: number) => {
@@ -32,10 +32,10 @@ const CategoryDeletePopup = (props: CategoryItemProps) => {
     }
 
     if (isError) {
-      toast.success("Sorry, we have some problem (Category)");
+      toast.error("Sorry, we have some problem (Category)");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, isSuccess, isError]);
+  }, [isLoading]);
 
   return (
     <Box>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { object, string, TypeOf } from "zod";
@@ -8,43 +8,51 @@ import {
   Button,
   ButtonGroup,
   CircularProgress,
+  MenuItem,
   Modal,
   TextField,
   Typography,
 } from "@mui/material";
-import { useCreateCategoryMutation } from "../../../redux/api/categoryApi";
+import {
+  useGetCategoryByIdQuery,
+  useUpdateCategoryMutation,
+} from "../../../redux/api/categoryApi";
+import { ICategoryResponse } from "../../../types/category";
 
-const createCategorySchema = object({
+interface IUpdateCategoryProp {
+  // setOpenPostModal: (openPostModal: boolean) => void;
+  category: ICategoryResponse;
+}
+
+const updateCategorySchema = object({
   name: string().max(50).nonempty("Name is required"),
-});
+}).partial();
 
-export type ICreateCategory = TypeOf<typeof createCategorySchema>;
+type IUpdateCategory = TypeOf<typeof updateCategorySchema>;
 
-const CategoryCreatePopup = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [createCategory, { isLoading, isError, isSuccess }] =
-    useCreateCategoryMutation();
+const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
 
-  const methods = useForm<ICreateCategory>({
-    resolver: zodResolver(createCategorySchema),
+  const [updateCategory, { isLoading, isError, isSuccess }] =
+    useUpdateCategoryMutation();
+
+  const methods = useForm<IUpdateCategory>({
+    resolver: zodResolver(updateCategorySchema),
   });
-
-  const onSubmitHandler: SubmitHandler<ICreateCategory> = (values) => {
-    createCategory(values);
-  };
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Category created successfully");
-      handleClose();
+      toast.success("Category updated successfully");
+      setModalOpen(false);
     }
-    // console.log("isError", isError, "gdfgdsg", isSuccess);
+
     if (isError) {
-      toast.error("Sorry, category not created");
+      toast.error("Sorry, category not updated");
     }
-  }, [isError, isSuccess]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   useEffect(() => {
     if (methods.formState.isSubmitting) {
@@ -53,18 +61,25 @@ const CategoryCreatePopup = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [methods.formState.isSubmitting]);
 
+  useEffect(() => {
+    if (category) {
+      methods.reset({
+        name: category.name,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
+
+  const onSubmitHandler: SubmitHandler<IUpdateCategory> = (values) => {
+    const newCategory = { id: category.id, name: values.name };
+
+    updateCategory(newCategory);
+  };
+
   return (
-    <>
-      <Button
-        sx={{
-          width: "auto",
-        }}
-        variant="contained"
-        onClick={handleOpen}
-      >
-        Add category
-      </Button>
-      <Modal open={open} onClose={handleClose}>
+    <Box>
+      <MenuItem onClick={handleModalOpen}>Edit</MenuItem>
+      <Modal open={modalOpen}>
         <Box
           sx={{
             position: "fixed",
@@ -81,7 +96,7 @@ const CategoryCreatePopup = () => {
         >
           <Box display="flex" justifyContent="space-between" sx={{ mb: 3 }}>
             <Typography variant="h5" component="h1">
-              Create Category
+              {/* `Edit ${category.name} category` */}
             </Typography>
             {isLoading && <CircularProgress size="1rem" color="primary" />}
           </Box>
@@ -108,7 +123,11 @@ const CategoryCreatePopup = () => {
                   mt: "50px",
                 }}
               >
-                <Button type="button" variant="outlined" onClick={handleClose}>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  onClick={handleModalClose}
+                >
                   cancel
                 </Button>
                 <Button
@@ -123,8 +142,8 @@ const CategoryCreatePopup = () => {
           </FormProvider>
         </Box>
       </Modal>
-    </>
+    </Box>
   );
 };
 
-export default CategoryCreatePopup;
+export default CategoryEditPopup;

@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import CategoryDeletePopup from "../CategoryDeletePopup/CategoryDeletePopup";
+import CategoryEditPopup from "../CategoryEditPopup/CategoryEditPopup";
 
 interface ICategoryItemProps {
   category: ICategoryResponse;
@@ -86,7 +87,8 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleClose}>Edit</MenuItem>
+                {/* <MenuItem onClick={handleClose}>Edit</MenuItem> */}
+                <CategoryEditPopup category={category} />
                 <CategoryDeletePopup id={category.id} />
               </Menu>
             </Box>

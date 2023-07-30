@@ -1,7 +1,6 @@
 import { IUser } from "./user";
 export interface ICategory {
   id: number;
-  // id: string;
   name: string;
   dateCreated: Date;
   userId: number;
@@ -11,8 +10,12 @@ export interface ICategoryRequest {
 }
 export interface ICategoryResponse {
   id: number;
-  // id: string;
   name: string;
   dateCreated: Date;
   user: IUser;
+}
+
+export interface IUpdateCategory {
+  id: number;
+  name: string;
 }
