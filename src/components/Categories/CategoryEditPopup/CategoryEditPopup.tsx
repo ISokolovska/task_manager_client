@@ -13,27 +13,23 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  useGetCategoryByIdQuery,
-  useUpdateCategoryMutation,
-} from "../../../redux/api/categoryApi";
+import { useUpdateCategoryMutation } from "../../../redux/api/categoryApi";
 import { ICategoryResponse } from "../../../types/category";
 
 interface IUpdateCategoryProp {
-  // setOpenPostModal: (openPostModal: boolean) => void;
   category: ICategoryResponse;
 }
 
 const updateCategorySchema = object({
-  name: string().max(50).nonempty("Name is required"),
+  name: string().min(1).max(50).nonempty("Name is required"),
 }).partial();
 
 type IUpdateCategory = TypeOf<typeof updateCategorySchema>;
 
 const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const handleModalOpen = () => setModalOpen(true);
-  const handleModalClose = () => setModalOpen(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [updateCategory, { isLoading, isError, isSuccess }] =
     useUpdateCategoryMutation();
@@ -45,7 +41,7 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Category updated successfully");
-      setModalOpen(false);
+      setOpen(false);
     }
 
     if (isError) {
@@ -78,8 +74,10 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
 
   return (
     <Box>
-      <MenuItem onClick={handleModalOpen}>Edit</MenuItem>
-      <Modal open={modalOpen}>
+      <MenuItem sx={{ fontWeight: 500 }} onClick={handleOpen}>
+        Edit
+      </MenuItem>
+      <Modal open={open}>
         <Box
           sx={{
             position: "fixed",
@@ -123,11 +121,7 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
                   mt: "50px",
                 }}
               >
-                <Button
-                  type="button"
-                  variant="outlined"
-                  onClick={handleModalClose}
-                >
+                <Button type="button" variant="outlined" onClick={handleClose}>
                   cancel
                 </Button>
                 <Button

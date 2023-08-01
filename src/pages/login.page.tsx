@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginUserMutation } from "../redux/api/authApi";
 import { setToken } from "../redux/features/auth/userSlice";
 import { useAppDispatch } from "../redux/store";
-import { LinkItem, LoadingButton } from "../components/Header/Header.style";
+import { LinkItem } from "../components/Header/Header.style";
 import FormInput from "../components/FormInput/FormInput";
 
 const loginSchema = object({
@@ -135,20 +135,19 @@ const LoginPage = () => {
             <FormInput name="email" label="Email Address" type="email" />
             <FormInput name="password" label="Password" type="password" />
 
-            <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
+            <Typography sx={{ mb: "1rem" }}>
               Need an account? <LinkItem to="/register">Sign Up Here</LinkItem>
             </Typography>
 
-            <LoadingButton
+            <Button
               variant="contained"
               sx={{ mt: 1, padding: "0.6rem 0" }}
               fullWidth
               disableElevation
               type="submit"
-              loading={isLoading}
             >
               Login
-            </LoadingButton>
+            </Button>
           </Box>
         </FormProvider>
       </Box>

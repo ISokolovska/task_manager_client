@@ -19,7 +19,7 @@ const RegisterPage = React.lazy(() => import("./pages/register.page"));
 const HomePage = React.lazy(() => import("./pages/home.page"));
 const CategoryPage = React.lazy(() => import("./pages/category.page"));
 const TaskPage = React.lazy(() => import("./pages/task.page"));
-const AdminPage = React.lazy(() => import("./pages/admin.page"));
+// const AdminPage = React.lazy(() => import("./pages/admin.page"));
 const UnauthorizePage = React.lazy(() => import("./pages/unauthorize.page"));
 // const ProfilePage = React.lazy(() => import("./pages/profile.page"));
 
@@ -60,9 +60,9 @@ const App = () => {
               {/* <Route path="profile" element={<ProfilePage />} /> */}
               <Route path="tasks" element={<TaskPage />} />
             </Route>
-            <Route element={<RequireUser allowedRoles={["admin"]} />}>
+            {/* <Route element={<RequireUser allowedRoles={["admin"]} />}>
               <Route path="admin" element={<AdminPage />} />
-            </Route>
+            </Route> */}
             <Route path="unauthorized" element={<UnauthorizePage />} />
           </Route>
 

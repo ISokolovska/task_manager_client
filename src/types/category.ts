@@ -1,10 +1,10 @@
 import { IUser } from "./user";
-export interface ICategory {
-  id: number;
-  name: string;
-  dateCreated: Date;
-  userId: number;
-}
+// export interface ICategory {
+//   id: number;
+//   name: string;
+//   dateCreated: Date;
+//   userId: number;
+// }
 export interface ICategoryRequest {
   name: string;
 }

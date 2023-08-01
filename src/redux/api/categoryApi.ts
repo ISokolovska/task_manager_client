@@ -1,14 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  ICategory,
   ICategoryRequest,
   ICategoryResponse,
   IUpdateCategory,
 } from "../../types/category";
 import { RootState } from "../store";
 import { IServerResponse } from "./interfaces/server-responce";
-
-// type CategoriesResponse = ICategory[];
 
 // Define a service using a base URL and expected endpoints
 export const categoryApi = createApi({

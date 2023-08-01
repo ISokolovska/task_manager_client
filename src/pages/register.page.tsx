@@ -2,20 +2,12 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRegisterUserMutation } from "../redux/api/authApi";
 import FormInput from "../components/FormInput/FormInput";
-import { LinkItem, LoadingButton } from "../components/Header/Header.style";
-
-// const LinkItem = styled(Link)`
-//   text-decoration: none;
-//   color: #2363eb;
-//   &:hover {
-//     text-decoration: underline;
-//   }
-// `;
+import { LinkItem } from "../components/Header/Header.style";
 
 const registerSchema = object({
   email: string()
@@ -128,21 +120,20 @@ const RegisterPage = () => {
             <FormInput name="email" label="Email Address" type="email" />
             <FormInput name="password" label="Password" type="password" />
 
-            <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
+            <Typography sx={{ mb: "1rem" }}>
               Already have an account?{" "}
               <LinkItem to="/login">Login Here</LinkItem>
             </Typography>
 
-            <LoadingButton
+            <Button
               variant="contained"
               sx={{ mt: 1, padding: "0.6rem 0" }}
               fullWidth
               disableElevation
               type="submit"
-              loading={isLoading}
             >
               Sign Up
-            </LoadingButton>
+            </Button>
           </Box>
         </FormProvider>
       </Box>

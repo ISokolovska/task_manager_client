@@ -15,7 +15,7 @@ import {
 import { useCreateCategoryMutation } from "../../../redux/api/categoryApi";
 
 const createCategorySchema = object({
-  name: string().max(50).nonempty("Name is required"),
+  name: string().min(1).max(50).nonempty("Name is required"),
 });
 
 export type ICreateCategory = TypeOf<typeof createCategorySchema>;
@@ -24,6 +24,7 @@ const CategoryCreatePopup = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
   const [createCategory, { isLoading, isError, isSuccess }] =
     useCreateCategoryMutation();
 

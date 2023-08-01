@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 import TaskList from "../components/Tasks/TaskList/TaskList";
-import { LoadingButton } from "../components/Header/Header.style";
+// import { LoadingButton } from "../components/Header/Header.style";
 import { Modal } from "antd";
 import { persistedStore } from "../redux/store";
 
@@ -47,14 +47,14 @@ const TaskPage = () => {
         </Typography>
       </Box>
       <>
-        <LoadingButton
+        <Button
           sx={{
             backgroundColor: "#eee",
           }}
           onClick={showModal}
         >
           Add category
-        </LoadingButton>
+        </Button>
         <Modal
           centered
           bodyStyle={{ height: 30 }}

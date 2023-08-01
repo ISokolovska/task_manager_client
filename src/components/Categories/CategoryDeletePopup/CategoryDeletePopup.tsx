@@ -15,9 +15,9 @@ export interface CategoryItemProps {
 }
 
 const CategoryDeletePopup = (props: CategoryItemProps) => {
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const handleModalOpen = () => setModalOpen(true);
-  const handleModalClose = () => setModalOpen(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const [deleteCategory, { isSuccess, isError, isLoading }] =
     useDeleteCategoryMutation();
@@ -39,8 +39,10 @@ const CategoryDeletePopup = (props: CategoryItemProps) => {
 
   return (
     <Box>
-      <MenuItem onClick={handleModalOpen}>Delete</MenuItem>
-      <Modal open={modalOpen}>
+      <MenuItem sx={{ fontWeight: 500 }} onClick={handleOpen}>
+        Delete
+      </MenuItem>
+      <Modal open={open}>
         <Box
           sx={{
             position: "fixed",
@@ -68,7 +70,7 @@ const CategoryDeletePopup = (props: CategoryItemProps) => {
               mt: "50px",
             }}
           >
-            <Button variant="outlined" onClick={handleModalClose}>
+            <Button variant="outlined" onClick={handleClose}>
               no
             </Button>
             <Button

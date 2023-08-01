@@ -8,8 +8,9 @@ import {
   CardActions,
   CardContent,
   Grid,
+  Link,
   Menu,
-  MenuItem,
+  // MenuItem,
   Typography,
 } from "@mui/material";
 import CategoryDeletePopup from "../CategoryDeletePopup/CategoryDeletePopup";
@@ -44,6 +45,8 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
               <Typography
                 variant="body1"
                 sx={{
+                  fontWeight: 500,
+                  fontSize: "1.05rem",
                   backgroundColor: "#dad8d8",
                   p: "0.1rem 0.4rem",
                   borderRadius: 1,
@@ -55,6 +58,8 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
               <Typography
                 variant="body2"
                 sx={{
+                  fontWeight: 500,
+                  fontSize: "1.05rem",
                   color: "#ffa238",
                 }}
               >
@@ -68,10 +73,16 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
+              sx={{
+                fontWeight: 700,
+                fontSize: "1.002rem",
+                lineHeight: "1.75",
+              }}
               onClick={handleClick}
             >
               actions
             </Button>
+
             <Box
               display="flex"
               justifyContent="space-between"
@@ -87,20 +98,26 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                {/* <MenuItem onClick={handleClose}>Edit</MenuItem> */}
                 <CategoryEditPopup category={category} />
                 <CategoryDeletePopup id={category.id} />
               </Menu>
             </Box>
+
+            <Link href="tasks" underline="none">
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  fontSize: "1.002rem",
+                  lineHeight: "1.75",
+                  textTransform: "uppercase",
+                }}
+              >
+                more
+              </Typography>
+            </Link>
           </CardActions>
         </Card>
       </Grid>
-      {/* <PostModal
-        openPostModal={openPostModal}
-        setOpenPostModal={setOpenPostModal}
-      >
-        <UpdatePost setOpenPostModal={setOpenPostModal} post={post} />
-      </PostModal> */}
     </>
   );
 };

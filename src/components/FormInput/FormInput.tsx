@@ -1,18 +1,12 @@
+import { FC } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import {
   FormHelperText,
   Typography,
   FormControl,
-  Input as _Input,
+  Input,
   InputProps,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { FC } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-
-const Input = styled(_Input)`
-  background-color: white;
-  padding: 0.4rem 0.7rem;
-`;
 
 type IFormInputProps = {
   name: string;
@@ -34,7 +28,7 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
         <FormControl fullWidth sx={{ mb: 2 }}>
           <Typography
             variant="body2"
-            sx={{ color: "#2363eb", mb: 1, fontWeight: 500 }}
+            sx={{ color: "#2363eb", mb: 1, fontWeight: 500, fontSize: "1rem" }}
           >
             {label}
           </Typography>
@@ -42,7 +36,11 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
             {...field}
             fullWidth
             disableUnderline
-            sx={{ borderRadius: "1rem" }}
+            sx={{
+              borderRadius: "1rem",
+              backgroundColor: "#fff",
+              padding: "0.4rem 0.7rem",
+            }}
             error={!!errors[name]}
             {...otherProps}
           />
