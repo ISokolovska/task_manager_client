@@ -1,69 +1,70 @@
-import React, { useState } from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import { Box, Container, Grid, Typography } from "@mui/material";
 
-import TaskList from "../components/Tasks/TaskList/TaskList";
-// import { LoadingButton } from "../components/Header/Header.style";
-import { Modal } from "antd";
-import { persistedStore } from "../redux/store";
+import FullScreenLoader from "../components/Loader/FullScreenLoader";
+import TaskItem from "../components/Tasks/TaskItem/TaskItem";
+import { useGetAllTasksQuery } from "../redux/api/taskApi";
+import TaskCreatePopup from "../components/Tasks/TaskCreatePopup/TaskCreatePopup";
+import { useParams } from "react-router-dom";
+
+// import CategoryItem from "../components/Categories/CategoryItem/CategoryItem";
+// import CategoryCreatePopup from "../components/Categories/CategoryCreatePopup/CategoryCreatePopup";
 
 const TaskPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //  const dispatch = useAppDispatch();
+  const { categoryId } = useParams<"categoryId">();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+  const {
+    isLoading,
+    isError,
+    data: tasks,
+  } = useGetAllTasksQuery(categoryId || "", { skip: !categoryId });
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    persistedStore.purge();
-    //  dispatch(logout());
-  };
+  useEffect(() => {
+    if (isError) {
+      toast.error("Sorry, we have some problem(task)");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  useEffect(() => {
+    console.log(tasks);
+  }, [tasks]);
+
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
+
   return (
-    // <div>
-    //   <h1>TaskPage</h1>
-    // </div>
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          backgroundColor: "#ece9e9",
-          mt: "2rem",
-          height: "15rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          variant="h2"
-          component="h1"
-          sx={{ color: "#1f1e1e", fontWeight: 500 }}
-        >
-          TaskPage
-        </Typography>
-      </Box>
-      <>
-        <Button
+    <Container
+      sx={{
+        backgroundColor: "#fff",
+        height: "100vh",
+        paddingTop: "60px",
+      }}
+    >
+      <TaskCreatePopup />
+
+      {!tasks?.data?.length ? (
+        <Box maxWidth="sm" sx={{ mx: "auto", py: "5rem" }}>
+          <Typography>No tasks at the moment</Typography>
+        </Box>
+      ) : (
+        <Grid
+          container
+          rowGap={5}
+          maxWidth="lg"
           sx={{
-            backgroundColor: "#eee",
+            margin: "0 auto",
+            pt: "30px",
+            gridAutoRows: "max-content",
           }}
-          onClick={showModal}
         >
-          Add category
-        </Button>
-        <Modal
-          centered
-          bodyStyle={{ height: 30 }}
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        ></Modal>
-      </>
-      <TaskList />
+          {tasks?.data?.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </Grid>
+      )}
     </Container>
   );
 };

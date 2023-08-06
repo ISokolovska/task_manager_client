@@ -11,16 +11,8 @@ import { useAppSelector } from "../redux/store";
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const isLoggedIn = useAppSelector(getTokenSelector);
   const user = useAppSelector(getUserSelector);
-  // const [cookies] = useCookies(["logged_in"]);
-  // const logged_in = cookies.logged_in;
 
-  // const { data: user } = userApi.endpoints.getMe.useQuery(
-  //   { token: isLoggedIn },
-  //   {
-  //     skip: !isLoggedIn,
-  //   }
-  // );
-  console.log(123, allowedRoles, 456, user);
+  // console.log(123, allowedRoles, 456, user);
   const location = useLocation();
 
   if (isLoggedIn && !user) {

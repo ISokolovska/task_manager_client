@@ -8,13 +8,13 @@ import {
   CardActions,
   CardContent,
   Grid,
-  Link,
   Menu,
   // MenuItem,
   Typography,
 } from "@mui/material";
 import CategoryDeletePopup from "../CategoryDeletePopup/CategoryDeletePopup";
 import CategoryEditPopup from "../CategoryEditPopup/CategoryEditPopup";
+import { useNavigate } from "react-router-dom";
 
 interface ICategoryItemProps {
   category: ICategoryResponse;
@@ -22,6 +22,13 @@ interface ICategoryItemProps {
 const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  // const location = useLocation();
+  // const backLinkHref = location.state?.from ?? `${category.id}/tasks`;
+  const navigate = useNavigate();
+
+  const handleNewPage = () => {
+    navigate(`${category.id}/tasks`);
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -67,9 +74,10 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
               </Typography>
             </Box>
           </CardContent>
-          <CardActions>
+          <CardActions sx={{ p: "16px" }}>
             <Button
               id="basic-button"
+              // variant="outlined"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
@@ -103,7 +111,20 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
               </Menu>
             </Box>
 
-            <Link href="tasks" underline="none">
+            <Button
+              type="button"
+              // variant="outlined"
+              sx={{
+                fontWeight: 700,
+                fontSize: "1.002rem",
+                lineHeight: "1.75",
+              }}
+              onClick={handleNewPage}
+            >
+              more
+            </Button>
+
+            {/* <Link href={`${category.id}/tasks`} underline="none">
               <Typography
                 sx={{
                   fontWeight: 700,
@@ -114,7 +135,7 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
               >
                 more
               </Typography>
-            </Link>
+            </Link> */}
           </CardActions>
         </Card>
       </Grid>

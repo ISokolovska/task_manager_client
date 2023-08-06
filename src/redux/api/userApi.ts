@@ -32,7 +32,7 @@ export const userApi = createApi({
         console.log(args);
         try {
           const { data } = await queryFulfilled;
-          console.log("data", data);
+          // console.log("data", data);
           dispatch(setUser(data));
         } catch (error) {}
       },

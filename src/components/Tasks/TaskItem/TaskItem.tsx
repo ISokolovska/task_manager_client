@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-// import { ICategoryResponse } from "../../../types/category";
-import dayjs from "dayjs";
+
+// import dayjs from "dayjs";
 import {
   Box,
   Button,
@@ -14,8 +14,8 @@ import {
   TextareaAutosize,
   Typography,
 } from "@mui/material";
-import TaskEditPopup from "../TaskEditPopup/TaskEditPopup";
-import TaskDeletePopup from "../TaskDeletePopup/TaskDeletePopup";
+// import TaskEditPopup from "../TaskEditPopup/TaskEditPopup";
+// import TaskDeletePopup from "../TaskDeletePopup/TaskDeletePopup";
 import { ITaskResponse } from "../../../types/task";
 import {
   Controller,
@@ -23,11 +23,14 @@ import {
   // SubmitHandler,
   // useForm,
 } from "react-hook-form";
+import dayjs from "dayjs";
+
 interface ITaskItemProps {
   task: ITaskResponse;
 }
-const CategoryItem: FC<ITaskItemProps> = ({ task }) => {
+const TaskItem: FC<ITaskItemProps> = ({ task }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -62,13 +65,26 @@ const CategoryItem: FC<ITaskItemProps> = ({ task }) => {
               >
                 {task.name}
               </Typography>
-              <Controller
+              <Typography
+                variant="body1"
+                sx={{
+                  fontWeight: 500,
+                  fontSize: "1.05rem",
+                  backgroundColor: "#dad8d8",
+                  p: "0.1rem 0.4rem",
+                  borderRadius: 1,
+                  mr: "1rem",
+                }}
+              >
+                {task.description}
+              </Typography>
+              {/* <Controller
                 name="description"
                 // control={methods.control}
                 defaultValue=""
-                render={({ field }) => (
+                render={() => (
                   <TextareaAutosize
-                    {...field}
+                    // {...field}
                     // placeholder="Post Details"
                     minRows={8}
                     style={{
@@ -82,23 +98,29 @@ const CategoryItem: FC<ITaskItemProps> = ({ task }) => {
                     }}
                   />
                 )}
-              />
+              /> */}
               <Typography
-                variant="body2"
+                variant="body1"
                 sx={{
                   fontWeight: 500,
                   fontSize: "1.05rem",
-                  color: "#ffa238",
+                  backgroundColor: "#dad8d8",
+                  p: "0.1rem 0.4rem",
+                  borderRadius: 1,
+                  mr: "1rem",
                 }}
               >
                 {dayjs(task.dateStart).format("DD.MM.YYYY")}
               </Typography>
               <Typography
-                variant="body2"
+                variant="body1"
                 sx={{
                   fontWeight: 500,
                   fontSize: "1.05rem",
-                  color: "#ffa238",
+                  backgroundColor: "#dad8d8",
+                  p: "0.1rem 0.4rem",
+                  borderRadius: 1,
+                  mr: "1rem",
                 }}
               >
                 {dayjs(task.dateEnd).format("DD.MM.YYYY")}
@@ -160,4 +182,4 @@ const CategoryItem: FC<ITaskItemProps> = ({ task }) => {
   );
 };
 
-export default CategoryItem;
+export default TaskItem;

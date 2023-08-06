@@ -23,15 +23,6 @@ export const categoryApi = createApi({
   }),
   tagTypes: ["categories"],
   endpoints: (builder) => ({
-    getCategoryById: builder.query<ICategoryResponse, number | string>({
-      query(id) {
-        return {
-          url: `/categories/${id}`,
-        };
-      },
-      providesTags: ["categories"],
-    }),
-
     getAllCategories: builder.query<IServerResponse<ICategoryResponse[]>, void>(
       {
         query() {
@@ -43,41 +34,21 @@ export const categoryApi = createApi({
       }
     ),
 
+    getCategoryById: builder.query<ICategoryResponse, number | string>({
+      query(id) {
+        return {
+          url: `/categories/${id}`,
+        };
+      },
+      providesTags: ["categories"],
+    }),
+
     createCategory: builder.mutation<ICategoryResponse, ICategoryRequest>({
       query: (category) => ({
         url: "/categories",
         method: "POST",
         body: category,
       }),
-      invalidatesTags: ["categories"],
-    }),
-
-    // updateCategory: builder.mutation<
-    //   ICategory,
-    //   {
-    //     id: number | string;
-
-    //     updatedName: string;
-    //   }
-    // >({
-    //   query({ id, updatedName }) {
-    //     return {
-    //       url: `/categories/${id}`,
-    //       method: "PATCH",
-    //       body: { id, name: updatedName },
-    //       // body: category,
-    //     };
-    //   },
-    //   invalidatesTags: ["categories"],
-    // }),
-
-    deleteCategory: builder.mutation<ICategoryResponse, number | string>({
-      query(id) {
-        return {
-          url: `/categories/${id}`,
-          method: "DELETE",
-        };
-      },
       invalidatesTags: ["categories"],
     }),
 
@@ -101,6 +72,16 @@ export const categoryApi = createApi({
         } catch {
           patchResult.undo();
         }
+      },
+      invalidatesTags: ["categories"],
+    }),
+
+    deleteCategory: builder.mutation<ICategoryResponse, number | string>({
+      query(id) {
+        return {
+          url: `/categories/${id}`,
+          method: "DELETE",
+        };
       },
       invalidatesTags: ["categories"],
     }),

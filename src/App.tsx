@@ -55,14 +55,13 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             {/* Private Route */}
-            <Route element={<RequireUser allowedRoles={["user", "admin"]} />}>
+            <Route element={<RequireUser allowedRoles={["user"]} />}>
               <Route path="categories" element={<CategoryPage />} />
-              {/* <Route path="profile" element={<ProfilePage />} /> */}
-              <Route path="tasks" element={<TaskPage />} />
+              <Route
+                path="categories/:categoryId/tasks"
+                element={<TaskPage />}
+              />
             </Route>
-            {/* <Route element={<RequireUser allowedRoles={["admin"]} />}>
-              <Route path="admin" element={<AdminPage />} />
-            </Route> */}
             <Route path="unauthorized" element={<UnauthorizePage />} />
           </Route>
 

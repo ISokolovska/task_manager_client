@@ -1,4 +1,4 @@
-import { HttpStatus } from "../../../constants/httpStatus";
+import { HttpStatus } from "../../../utils/constants/httpStatus";
 
 export interface IServerResponse<T = object> {
   statusCode: HttpStatus;

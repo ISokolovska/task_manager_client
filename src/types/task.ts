@@ -1,4 +1,3 @@
-import { ICategoryResponse } from "./category";
 export interface ITask {
   id: number;
   name: string;
@@ -7,22 +6,26 @@ export interface ITask {
   categotyId: number;
 }
 
-export interface ITaskRequest {
+export interface ICreateTask {
   name: string;
+  description: string;
+  dateStart: Date | string | null;
+  dateEnd: Date | string | null;
+  categoryId: number | string;
 }
 export interface ITaskResponse {
   id: number;
   name: string;
   description: string;
-  dateStart: Date;
-  dateEnd: Date;
-  category: ICategoryResponse;
+  dateStart: Date | string;
+  dateEnd: Date | string;
+  categoryId: number;
 }
 
 export interface IUpdateTask {
   id: number;
   name: string;
-  // Description;
+  description: string;
   dateStart: Date;
   dateEnd: Date;
 }

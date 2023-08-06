@@ -1,33 +1,66 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ITask } from "../../types/task";
+import {
+  // ITask,
+  ICreateTask,
+  ITaskResponse,
+  IUpdateTask,
+} from "../../types/task";
+import { RootState } from "../store";
+import { IServerResponse } from "./interfaces/server-responce";
 
-type TasksResponse = ITask[];
+// type TasksResponse = ITask[];
 
 // Define a service using a base URL and expected endpoints
 export const taskApi = createApi({
   reducerPath: "taskApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_BASE_URL}` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.REACT_APP_BASE_URL}`,
+    prepareHeaders: (headers, { getState }) => {
+      // By default, if we have a token in the store, let's use that for authenticated requests
+      const { token } = (getState() as RootState).userState;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+
   tagTypes: ["tasks"],
   endpoints: (builder) => ({
-    getTasks: builder.query<TasksResponse, void>({
-      query: () => "tasks",
+    getAllTasks: builder.query<IServerResponse<ITaskResponse[]>, string>({
+      query(categoryId) {
+        return {
+          url: `/tasks/${categoryId}`,
+        };
+      },
       providesTags: ["tasks"],
     }),
 
-    getTaskById: builder.query<ITask, number>({
-      query: (id) => `tasks/${id}`,
+    getTaskById: builder.query<ITaskResponse, number | string>({
+      query(id) {
+        return {
+          url: `/tasks/${id}`,
+        };
+      },
       providesTags: ["tasks"],
     }),
 
-    addTask: builder.mutation<ITask, Partial<ITask>>({
-      query: (body) => ({ url: "tasks", method: "POST", body }),
+    createTask: builder.mutation<ITaskResponse, Partial<ICreateTask>>({
+      query: (task) => ({
+        url: "/tasks",
+        method: "POST",
+        body: task,
+      }),
       invalidatesTags: ["tasks"],
     }),
 
-    updateTask: builder.mutation<void, Pick<ITask, "id"> & Partial<ITask>>({
+    updateTask: builder.mutation<
+      void,
+      Pick<IUpdateTask, "id"> & Partial<IUpdateTask>
+    >({
       query: ({ id, ...patch }) => ({
         url: `tasks/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: patch,
       }),
       async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
@@ -45,7 +78,7 @@ export const taskApi = createApi({
       invalidatesTags: ["tasks"],
     }),
 
-    deleteTask: builder.mutation<{ success: boolean; id: number }, number>({
+    deleteTask: builder.mutation<ITaskResponse, number | string>({
       query(id) {
         return {
           url: `tasks/${id}`,
@@ -60,9 +93,9 @@ export const taskApi = createApi({
 // Export hooks for usage in function components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetTasksQuery,
+  useGetAllTasksQuery,
   useGetTaskByIdQuery,
-  useAddTaskMutation,
+  useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
 } = taskApi;
