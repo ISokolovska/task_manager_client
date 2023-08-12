@@ -22,8 +22,6 @@ interface ICategoryItemProps {
 const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  // const location = useLocation();
-  // const backLinkHref = location.state?.from ?? `${category.id}/tasks`;
   const navigate = useNavigate();
 
   const handleNewPage = () => {
@@ -123,19 +121,6 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
             >
               more
             </Button>
-
-            {/* <Link href={`${category.id}/tasks`} underline="none">
-              <Typography
-                sx={{
-                  fontWeight: 700,
-                  fontSize: "1.002rem",
-                  lineHeight: "1.75",
-                  textTransform: "uppercase",
-                }}
-              >
-                more
-              </Typography>
-            </Link> */}
           </CardActions>
         </Card>
       </Grid>

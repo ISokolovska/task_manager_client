@@ -7,17 +7,6 @@ interface IUserState {
   isLoggedIn: boolean;
 }
 
-// export const initialState: IUserState = {
-//   user: {
-//     id: null,
-//     email: "",
-//     role: null,
-//     isLoggedIn: false,
-//   },
-//   token: null,
-//   isLoggedIn: false,
-// };
-
 export const initialState: IUserState = {
   user: null,
   token: null,

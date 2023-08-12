@@ -34,27 +34,15 @@ const createTaskSchema = object({
   dateEnd: coerce.date(),
 });
 
-// interface ParamTypes {
-//   categoryId: number;
-// }
-
 // export type ICreateTask = TypeOf<typeof createTaskSchema>;
 
 const TaskCreatePopup = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // const { categoryId } = useParams() as { categoryId: number };
-  // const { categoryId } = useParams<{ categoryId: string }>();
 
-  // const { categoryId } = useParams();
   const { categoryId } = useParams<"categoryId">();
   console.log(categoryId);
-
-  // const categoryIdNumber = parseInt(categoryId, 10);
-  // console.log(categoryIdNumber);
-  // const { categoryId } = useParams<{ categoryId?: string }>();
-  // const { categoryId } = useParams<ParamTypes>();
 
   const [createTask, { isLoading, isError, isSuccess }] =
     useCreateTaskMutation();
@@ -64,7 +52,7 @@ const TaskCreatePopup = () => {
   });
 
   const onSubmitHandler: SubmitHandler<ICreateTask> = (values) => {
-    console.log(values);
+    // console.log(values);
     if (categoryId !== undefined) {
       const newTask: ICreateTask = { ...values, categoryId: categoryId };
       createTask(newTask);

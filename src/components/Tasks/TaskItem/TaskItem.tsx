@@ -1,6 +1,4 @@
 import React, { FC } from "react";
-
-// import dayjs from "dayjs";
 import {
   Box,
   Button,
@@ -10,19 +8,11 @@ import {
   Grid,
   Link,
   Menu,
-  // MenuItem,
-  TextareaAutosize,
   Typography,
 } from "@mui/material";
-// import TaskEditPopup from "../TaskEditPopup/TaskEditPopup";
-// import TaskDeletePopup from "../TaskDeletePopup/TaskDeletePopup";
+import TaskEditPopup from "../TaskEditPopup/TaskEditPopup";
+import TaskDeletePopup from "../TaskDeletePopup/TaskDeletePopup";
 import { ITaskResponse } from "../../../types/task";
-import {
-  Controller,
-  // FormProvider,
-  // SubmitHandler,
-  // useForm,
-} from "react-hook-form";
 import dayjs from "dayjs";
 
 interface ITaskItemProps {
@@ -45,13 +35,18 @@ const TaskItem: FC<ITaskItemProps> = ({ task }) => {
       <Grid item xs={12} md={6} lg={4}>
         <Card
           sx={{
-            maxWidth: 345,
+            maxWidth: 380,
+            margin: "0 auto",
             overflow: "visible",
             border: "1px solid #2363eb",
           }}
         >
           <CardContent>
-            <Box display="flex" alignItems="center" sx={{ mt: "1rem" }}>
+            <Box
+              display="flex"
+              alignItems="center"
+              // sx={{ mt: "1rem" }}
+            >
               <Typography
                 variant="body1"
                 sx={{
@@ -78,27 +73,7 @@ const TaskItem: FC<ITaskItemProps> = ({ task }) => {
               >
                 {task.description}
               </Typography>
-              {/* <Controller
-                name="description"
-                // control={methods.control}
-                defaultValue=""
-                render={() => (
-                  <TextareaAutosize
-                    // {...field}
-                    // placeholder="Post Details"
-                    minRows={8}
-                    style={{
-                      width: "100%",
-                      border: "1px solid #c8d0d4",
-                      fontFamily: "Roboto, sans-serif",
-                      marginBottom: "1rem",
-                      outline: "none",
-                      fontSize: "1rem",
-                      padding: "1rem",
-                    }}
-                  />
-                )}
-              /> */}
+
               <Typography
                 variant="body1"
                 sx={{
@@ -120,7 +95,7 @@ const TaskItem: FC<ITaskItemProps> = ({ task }) => {
                   backgroundColor: "#dad8d8",
                   p: "0.1rem 0.4rem",
                   borderRadius: 1,
-                  mr: "1rem",
+                  // mr: "1rem",
                 }}
               >
                 {dayjs(task.dateEnd).format("DD.MM.YYYY")}
@@ -158,8 +133,8 @@ const TaskItem: FC<ITaskItemProps> = ({ task }) => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                {/* <TaskEditPopup task={task} /> */}
-                {/* <TaskDeletePopup id={task.id} /> */}
+                <TaskEditPopup task={task} />
+                <TaskDeletePopup id={task.id} />
               </Menu>
             </Box>
 

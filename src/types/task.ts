@@ -17,8 +17,8 @@ export interface ITaskResponse {
   id: number;
   name: string;
   description: string;
-  dateStart: Date | string;
-  dateEnd: Date | string;
+  dateStart: Date;
+  dateEnd: Date;
   categoryId: number;
 }
 
@@ -28,4 +28,5 @@ export interface IUpdateTask {
   description: string;
   dateStart: Date;
   dateEnd: Date;
+  categoryId: number;
 }

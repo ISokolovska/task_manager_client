@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { object, string, TypeOf } from "zod";
@@ -71,6 +71,8 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
 
     updateCategory(newCategory);
   };
+
+  // const formFields = { name: "name" } as const;
 
   return (
     <Box>
