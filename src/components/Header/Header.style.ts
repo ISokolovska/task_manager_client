@@ -1,23 +1,19 @@
-import { LoadingButton as _LoadingButton } from "@mui/lab";
-
-import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-// export const LoadingButton = styled(_LoadingButton)(({ theme }) => ({
-//   padding: "0.4rem",
-//   color: theme.palette.blue.main,
-//   backgroundColor: theme.palette.yellow.main,
-//   fontWeight: 500,
+import { Link as _LinkItem } from "@mui/icons-material";
 
+// export const LinkItem = styled(Link)`textDecoration: "none",
+//   color: themePalette.primary,
 //   "&:hover": {
-//     backgroundColor: theme.palette.yellow.dark,
-//     transform: "translateY(-2px)",
-//   },
-// }));
+//     textDecoration: "underline",
+//   }`;
 
-export const LinkItem = styled(Link)(({ theme }) => ({
-  textDecoration: "none",
-  color: theme.palette.blue.main,
-  "&:hover": {
-    textDecoration: "underline",
-  },
-}));
+export const LinkItem = styled(_LinkItem)`
+  && {
+    /* color: ${({ theme }) => theme.palette.primary.main}; */
+    /* background-color: ${({ theme }) => theme.palette.primary.main}; */
+    /* color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer; */
+  }
+`;

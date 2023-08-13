@@ -53,7 +53,7 @@ const TaskDeletePopup = (props: TaskItemProps) => {
             width: "400px",
             height: "180px",
             padding: "20px",
-            backgroundColor: "white",
+            backgroundColor: "secondary.main",
             zIndex: 1000,
           }}
         >
@@ -75,7 +75,7 @@ const TaskDeletePopup = (props: TaskItemProps) => {
             </Button>
             <Button
               variant="outlined"
-              sx={{ backgroundColor: "#2363eb", color: "#fff" }}
+              sx={{ backgroundColor: "primary.main", color: "secondary.main" }}
               onClick={() => {
                 onDeleteHandler(props.id);
               }}

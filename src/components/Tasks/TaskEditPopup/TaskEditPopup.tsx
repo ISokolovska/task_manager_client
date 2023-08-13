@@ -128,7 +128,7 @@ const TaskEditPopup: FC<IUpdateTaskProp> = ({ task }) => {
             <Typography variant="h5" component="h1">
               {/* `Edit ${category.name} category` */}
             </Typography>
-            {isLoading && <CircularProgress size="1rem" color="primary" />}
+            {isLoading && <CircularProgress size="1rem" />}
           </Box>
           <FormProvider {...methods}>
             <Box

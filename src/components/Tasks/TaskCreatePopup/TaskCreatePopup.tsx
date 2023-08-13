@@ -86,7 +86,7 @@ const TaskCreatePopup = () => {
         variant="contained"
         onClick={handleOpen}
       >
-        Add task
+        <Typography variant="button">Add task</Typography>
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -99,15 +99,13 @@ const TaskCreatePopup = () => {
             width: "400px",
             // height: "280px",
             padding: "20px",
-            backgroundColor: "white",
+            backgroundColor: "secondary.main",
             zIndex: 1000,
           }}
         >
           <Box display="flex" justifyContent="space-between" sx={{ mb: 3 }}>
-            <Typography variant="h5" component="h1">
-              Create Task
-            </Typography>
-            {isLoading && <CircularProgress size="1rem" color="primary" />}
+            <Typography variant="h1">Create Task</Typography>
+            {isLoading && <CircularProgress size="1rem" />}
           </Box>
           <FormProvider {...methods}>
             <Box
@@ -176,23 +174,29 @@ const TaskCreatePopup = () => {
 
               <ButtonGroup
                 disableElevation
-                variant="contained"
+                variant="outlined"
                 aria-label="Disabled elevation buttons"
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   mt: "50px",
+                  "& .MuiButtonGroup-grouped:not(:last-of-type)": {
+                    borderRightColor: "primary.main",
+                  },
                 }}
               >
-                <Button type="button" variant="outlined" onClick={handleClose}>
-                  cancel
+                <Button type="button" onClick={handleClose}>
+                  <Typography variant="button" sx={{ color: "primary.main" }}>
+                    cancel
+                  </Typography>
                 </Button>
                 <Button
                   type="submit"
-                  variant="outlined"
-                  sx={{ backgroundColor: "#2363eb", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "primary.main",
+                  }}
                 >
-                  save
+                  <Typography variant="button">save</Typography>
                 </Button>
               </ButtonGroup>
             </Box>

@@ -9,7 +9,6 @@ import {
   useAppSelector,
 } from "../../redux/store";
 import { logout } from "../../redux/features/auth/userSlice";
-// import { LoadingButton } from "./Header.style";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -54,7 +53,7 @@ const Header = () => {
               <>
                 <Button
                   variant="contained"
-                  sx={{ backgroundColor: "#eee" }}
+                  sx={{ backgroundColor: "secondary.light" }}
                   onClick={showModal}
                 >
                   Logout
@@ -68,15 +67,6 @@ const Header = () => {
                 ></Modal>
               </>
             )}
-            {/* {user && user?.role === "admin" && (
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "#eee", ml: 2 }}
-                onClick={() => navigate("/admin")}
-              >
-                Admin
-              </Button>
-            )} */}
           </Box>
         </Toolbar>
       </Container>

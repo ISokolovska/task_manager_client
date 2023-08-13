@@ -57,13 +57,13 @@ const CategoryCreatePopup = () => {
   return (
     <>
       <Button
+        variant="contained"
         sx={{
           width: "auto",
         }}
-        variant="contained"
         onClick={handleOpen}
       >
-        Add category
+        <Typography variant="button">Add category</Typography>
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -76,7 +76,7 @@ const CategoryCreatePopup = () => {
             width: "400px",
             height: "280px",
             padding: "20px",
-            backgroundColor: "white",
+            backgroundColor: "secondary.main",
             zIndex: 1000,
           }}
         >
@@ -84,7 +84,7 @@ const CategoryCreatePopup = () => {
             <Typography variant="h5" component="h1">
               Create Category
             </Typography>
-            {isLoading && <CircularProgress size="1rem" color="primary" />}
+            {isLoading && <CircularProgress size="1rem" />}
           </Box>
           <FormProvider {...methods}>
             <Box
@@ -101,23 +101,29 @@ const CategoryCreatePopup = () => {
               />
               <ButtonGroup
                 disableElevation
-                variant="contained"
+                variant="outlined"
                 aria-label="Disabled elevation buttons"
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   mt: "50px",
+                  "& .MuiButtonGroup-grouped:not(:last-of-type)": {
+                    borderRightColor: "primary.main",
+                  },
                 }}
               >
-                <Button type="button" variant="outlined" onClick={handleClose}>
-                  cancel
+                <Button type="button" onClick={handleClose}>
+                  <Typography variant="button" sx={{ color: "primary.main" }}>
+                    cancel
+                  </Typography>
                 </Button>
                 <Button
                   type="submit"
-                  variant="outlined"
-                  sx={{ backgroundColor: "#2363eb", color: "#fff" }}
+                  sx={{
+                    backgroundColor: "primary.main",
+                  }}
                 >
-                  save
+                  <Typography variant="button">save</Typography>
                 </Button>
               </ButtonGroup>
             </Box>
