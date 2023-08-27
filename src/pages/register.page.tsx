@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Box, Button, Container, Typography } from "@mui/material";
@@ -75,7 +75,7 @@ const RegisterPage = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#2363eb",
+        backgroundColor: "primary.light",
       }}
     >
       <Box
@@ -88,18 +88,15 @@ const RegisterPage = () => {
       >
         <Typography
           textAlign="center"
-          component="h1"
+          variant="h1"
           sx={{
-            color: "#f9d13e",
-            fontSize: { xs: "2rem", md: "3rem" },
-            fontWeight: 600,
+            color: "secondary.dark",
             mb: 2,
-            letterSpacing: 1,
           }}
         >
           Welcome to TaskManager!
         </Typography>
-        <Typography component="h2" sx={{ color: "#e5e7eb", mb: 2 }}>
+        <Typography variant="h2" sx={{ color: "primary.contrastText", mb: 2 }}>
           Sign Up To Get Started!
         </Typography>
 
@@ -112,22 +109,26 @@ const RegisterPage = () => {
             maxWidth="27rem"
             width="100%"
             sx={{
-              backgroundColor: "#e5e7eb",
-              p: { xs: "1rem", sm: "2rem" },
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              width: 450,
+              height: 350,
+              backgroundColor: "blueGrey.main",
+              p: "2rem",
               borderRadius: 2,
             }}
           >
             <FormInput name="email" label="Email Address" type="email" />
             <FormInput name="password" label="Password" type="password" />
 
-            <Typography sx={{ mb: "1rem" }}>
-              Already have an account?{" "}
-              <LinkItem to="/login">Login Here</LinkItem>
+            <Typography variant="subtitle1" sx={{ mb: "1rem" }}>
+              Already have an account? <Link to="/login">Login Here</Link>
             </Typography>
 
             <Button
               variant="contained"
-              sx={{ mt: 1, padding: "0.6rem 0" }}
               fullWidth
               disableElevation
               type="submit"

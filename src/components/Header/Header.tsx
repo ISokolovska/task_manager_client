@@ -39,7 +39,9 @@ const Header = () => {
               <>
                 <Button
                   variant="contained"
-                  sx={{ mr: 2 }}
+                  sx={{
+                    mr: 2,
+                  }}
                   onClick={() => navigate("/register")}
                 >
                   SignUp
@@ -51,11 +53,7 @@ const Header = () => {
             )}
             {user && (
               <>
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: "secondary.light" }}
-                  onClick={showModal}
-                >
+                <Button variant="contained" onClick={showModal}>
                   Logout
                 </Button>
                 <Modal

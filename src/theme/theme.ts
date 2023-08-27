@@ -2,6 +2,8 @@ import { createTheme } from "@mui/material/styles";
 import { palette } from "./themePalette";
 import { typography } from "./themeTypography";
 
+// import { muiButton } from "./components/button.extend";
+
 const globalTheme = createTheme({
   palette,
   typography,
@@ -14,14 +16,14 @@ export const theme = createTheme(
         styleOverrides: {
           "@global": {
             html: {
-              fontSize: "1rem",
-              fontFamily: "'Roboto', sans-serif",
+              fontFamily: "'Raleway', sans-serif",
             },
             body: {
               margin: "0",
               boxSizing: "border-box",
-              fontFamily: "'Roboto', sans-serif",
-              backgroundColor: globalTheme.palette.secondary.main,
+              fontFamily: "'Raleway', sans-serif",
+
+              backgroundColor: globalTheme.palette.secondary.contrastText,
             },
           },
         },
@@ -39,7 +41,7 @@ export const theme = createTheme(
               padding: "0.4rem",
               border: "1px solid ",
               borderColor: globalTheme.palette.primary.main,
-              color: globalTheme.palette.secondary.main,
+              color: globalTheme.palette.secondary.contrastText,
               textTransform: "uppercase",
               ":hover": {
                 color: globalTheme.palette.primary.main,
@@ -51,11 +53,11 @@ export const theme = createTheme(
             style: {
               width: "90px",
               padding: "0.4rem",
-              color: globalTheme.palette.primary.main,
-              // color: "#2363eb",
-              backgroundColor: globalTheme.palette.primary.light,
+              color: globalTheme.palette.secondary.contrastText,
+
+              backgroundColor: globalTheme.palette.secondary.dark,
               "&:hover": {
-                backgroundColor: globalTheme.palette.primary.dark,
+                backgroundColor: globalTheme.palette.secondary.main,
                 transform: "translateY(-2px)",
               },
             },

@@ -27,8 +27,8 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
       render={({ field }) => (
         <FormControl fullWidth sx={{ mb: 2 }}>
           <Typography
-            variant="body2"
-            sx={{ color: "#2363eb", mb: 1, fontWeight: 500, fontSize: "1rem" }}
+            variant="subtitle1"
+            sx={{ color: "primary.contrastText", mb: 1 }}
           >
             {label}
           </Typography>
@@ -37,9 +37,10 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
             fullWidth
             disableUnderline
             sx={{
-              borderRadius: "1rem",
-              backgroundColor: "#fff",
               padding: "0.4rem 0.7rem",
+              borderRadius: "1rem",
+              color: "primary.contrastText",
+              backgroundColor: "secondary.contrastText",
             }}
             error={!!errors[name]}
             {...otherProps}

@@ -42,7 +42,12 @@ const TaskCreatePopup = () => {
   const handleClose = () => setOpen(false);
 
   const { categoryId } = useParams<"categoryId">();
-  console.log(categoryId);
+
+  const categoryIdAsNumber = Number(categoryId);
+
+  // console.log(categoryId);
+  console.log(categoryIdAsNumber);
+  // console.log(categoryIdParsed);
 
   const [createTask, { isLoading, isError, isSuccess }] =
     useCreateTaskMutation();
@@ -54,7 +59,10 @@ const TaskCreatePopup = () => {
   const onSubmitHandler: SubmitHandler<ICreateTask> = (values) => {
     // console.log(values);
     if (categoryId !== undefined) {
-      const newTask: ICreateTask = { ...values, categoryId: categoryId };
+      const newTask: ICreateTask = {
+        ...values,
+        categoryId: categoryIdAsNumber,
+      };
       createTask(newTask);
     }
   };
@@ -99,12 +107,12 @@ const TaskCreatePopup = () => {
             width: "400px",
             // height: "280px",
             padding: "20px",
-            backgroundColor: "secondary.main",
+            backgroundColor: "primary.light",
             zIndex: 1000,
           }}
         >
           <Box display="flex" justifyContent="space-between" sx={{ mb: 3 }}>
-            <Typography variant="h1">Create Task</Typography>
+            <Typography variant="h2">Create Task</Typography>
             {isLoading && <CircularProgress size="1rem" />}
           </Box>
           <FormProvider {...methods}>
@@ -127,16 +135,13 @@ const TaskCreatePopup = () => {
                 render={({ field }) => (
                   <TextareaAutosize
                     {...field}
-                    placeholder="Description"
                     minRows={8}
                     style={{
                       width: "100%",
-                      border: "1px solid #c8d0d4",
-                      fontFamily: "Roboto, sans-serif",
+                      backgroundColor: "#bbdefb",
                       marginBottom: "1rem",
                       outline: "none",
-                      fontSize: "1rem",
-                      padding: "1rem",
+                      padding: "16.5px 14px",
                     }}
                   />
                 )}
@@ -150,6 +155,7 @@ const TaskCreatePopup = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Select Date"
+                      sx={{ mb: "1rem", width: "100%" }}
                       value={field.value}
                       onChange={(date: any) => field.onChange(date)}
                     />
@@ -165,6 +171,7 @@ const TaskCreatePopup = () => {
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Select Date"
+                      sx={{ width: "100%" }}
                       value={field.value}
                       onChange={(date: any) => field.onChange(date)}
                     />

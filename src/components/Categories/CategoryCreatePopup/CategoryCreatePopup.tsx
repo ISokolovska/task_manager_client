@@ -73,17 +73,15 @@ const CategoryCreatePopup = () => {
             left: "50%",
             transform: "translateX(-50%)",
             transition: "all 300ms ease",
-            width: "400px",
-            height: "280px",
-            padding: "20px",
-            backgroundColor: "secondary.main",
+            width: "450px",
+            height: "310px",
+            padding: "2rem",
+            backgroundColor: "primary.light",
             zIndex: 1000,
           }}
         >
           <Box display="flex" justifyContent="space-between" sx={{ mb: 3 }}>
-            <Typography variant="h5" component="h1">
-              Create Category
-            </Typography>
+            <Typography variant="h2">Create Category</Typography>
             {isLoading && <CircularProgress size="1rem" />}
           </Box>
           <FormProvider {...methods}>
