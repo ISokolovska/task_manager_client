@@ -53,7 +53,7 @@ const CategoryDeletePopup = (props: CategoryItemProps) => {
             width: "400px",
             height: "180px",
             padding: "20px",
-            backgroundColor: "white",
+            backgroundColor: "primary.light",
             zIndex: 1000,
           }}
         >
@@ -62,25 +62,32 @@ const CategoryDeletePopup = (props: CategoryItemProps) => {
           </Typography>
           <ButtonGroup
             disableElevation
-            variant="contained"
+            variant="outlined"
             aria-label="Disabled elevation buttons"
             sx={{
               display: "flex",
               justifyContent: "space-between",
               mt: "50px",
+              "& .MuiButtonGroup-grouped:not(:last-of-type)": {
+                borderRightColor: "primary.main",
+              },
             }}
           >
-            <Button variant="outlined" onClick={handleClose}>
-              no
+            <Button type="button" onClick={handleClose}>
+              <Typography variant="button" sx={{ color: "primary.main" }}>
+                no
+              </Typography>
             </Button>
             <Button
-              variant="outlined"
-              sx={{ backgroundColor: "#2363eb", color: "#fff" }}
+              type="button"
+              sx={{
+                backgroundColor: "primary.main",
+              }}
               onClick={() => {
                 onDeleteHandler(props.id);
               }}
             >
-              yes
+              <Typography variant="button">yes</Typography>
             </Button>
           </ButtonGroup>
         </Box>

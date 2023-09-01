@@ -22,7 +22,6 @@ const lineHeight = {
 
 export const typography: TypographyVariantsOptions = {
   fontFamily: "'Raleway', sans-serif",
-
   h1: {
     fontWeight: fontWeight.lg,
     fontSize: fontSize.lg,
@@ -30,7 +29,7 @@ export const typography: TypographyVariantsOptions = {
     letterSpacing: letterSpacing.md,
   },
   h2: {
-    fontWeight: fontWeight.md,
+    // fontWeight: fontWeight.md,
     fontSize: fontSize.md,
     lineHeight: lineHeight.md,
     letterSpacing: letterSpacing.sm,

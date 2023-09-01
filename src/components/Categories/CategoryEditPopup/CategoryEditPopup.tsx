@@ -90,12 +90,12 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
             width: "400px",
             height: "280px",
             padding: "20px",
-            backgroundColor: "white",
+            backgroundColor: "primary.light",
             zIndex: 1000,
           }}
         >
           <Box display="flex" justifyContent="space-between" sx={{ mb: 3 }}>
-            <Typography variant="h5" component="h1">
+            <Typography variant="h2">
               {/* `Edit ${category.name} category` */}
             </Typography>
             {isLoading && <CircularProgress size="1rem" />}
@@ -115,23 +115,24 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
               />
               <ButtonGroup
                 disableElevation
-                variant="contained"
+                variant="outlined"
                 aria-label="Disabled elevation buttons"
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
                   mt: "50px",
+                  "& .MuiButtonGroup-grouped:not(:last-of-type)": {
+                    borderRightColor: "primary.main",
+                  },
                 }}
               >
-                <Button type="button" variant="outlined" onClick={handleClose}>
-                  cancel
+                <Button type="button" onClick={handleClose}>
+                  <Typography variant="button" sx={{ color: "primary.main" }}>
+                    cancel
+                  </Typography>
                 </Button>
-                <Button
-                  type="submit"
-                  variant="outlined"
-                  sx={{ backgroundColor: "#2363eb", color: "#fff" }}
-                >
-                  save
+                <Button type="submit" sx={{ backgroundColor: "primary.main" }}>
+                  <Typography variant="button">save</Typography>
                 </Button>
               </ButtonGroup>
             </Box>

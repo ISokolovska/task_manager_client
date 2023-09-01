@@ -25,7 +25,15 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
       defaultValue=""
       name={name}
       render={({ field }) => (
-        <FormControl fullWidth sx={{ mb: 2 }}>
+        <FormControl
+          fullWidth
+          sx={{
+            mb: 2,
+            // fontSize: "18px",
+            // fontWeight: 600,
+            // color: "primary.main",
+          }}
+        >
           <Typography
             variant="subtitle1"
             sx={{ color: "primary.contrastText", mb: 1 }}
@@ -39,7 +47,9 @@ const FormInput: FC<IFormInputProps> = ({ name, label, ...otherProps }) => {
             sx={{
               padding: "0.4rem 0.7rem",
               borderRadius: "1rem",
-              color: "primary.contrastText",
+              // fontSize: "18px",
+              // fontWeight: 600,
+              // color: "primary.contrastText",
               backgroundColor: "secondary.contrastText",
             }}
             error={!!errors[name]}

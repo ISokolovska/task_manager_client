@@ -22,8 +22,6 @@ export const theme = createTheme(
               margin: "0",
               boxSizing: "border-box",
               fontFamily: "'Raleway', sans-serif",
-
-              backgroundColor: globalTheme.palette.secondary.contrastText,
             },
           },
         },
@@ -38,6 +36,7 @@ export const theme = createTheme(
             props: { variant: "outlined" },
             style: {
               width: "90px",
+              // height: "45px",
               padding: "0.4rem",
               border: "1px solid ",
               borderColor: globalTheme.palette.primary.main,
@@ -52,6 +51,7 @@ export const theme = createTheme(
             props: { variant: "contained" },
             style: {
               width: "90px",
+              height: "45px",
               padding: "0.4rem",
               color: globalTheme.palette.secondary.contrastText,
 

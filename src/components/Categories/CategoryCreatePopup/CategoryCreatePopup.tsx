@@ -91,12 +91,7 @@ const CategoryCreatePopup = () => {
               autoComplete="off"
               onSubmit={methods.handleSubmit(onSubmitHandler)}
             >
-              <TextField
-                label="Name"
-                fullWidth
-                sx={{ mb: "1rem" }}
-                {...methods.register("name")}
-              />
+              <TextField label="Name" fullWidth {...methods.register("name")} />
               <ButtonGroup
                 disableElevation
                 variant="outlined"

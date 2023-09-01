@@ -27,9 +27,10 @@ const CategoryPage = () => {
   return (
     <Container
       sx={{
-        backgroundColor: "#fff",
+        // backgroundColor: "#fff",
         height: "100vh",
         paddingTop: "60px",
+        backgroundColor: "primary.light",
       }}
     >
       <CategoryCreatePopup />
