@@ -20,6 +20,7 @@ export const theme = createTheme(
             },
             body: {
               margin: "0",
+              padding: "0",
               boxSizing: "border-box",
               fontFamily: "'Raleway', sans-serif",
             },

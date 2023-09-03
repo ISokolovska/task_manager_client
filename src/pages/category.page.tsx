@@ -27,9 +27,8 @@ const CategoryPage = () => {
   return (
     <Container
       sx={{
-        // backgroundColor: "#fff",
         height: "100vh",
-        paddingTop: "60px",
+        padding: "60px 0px",
         backgroundColor: "primary.light",
       }}
     >
@@ -45,7 +44,7 @@ const CategoryPage = () => {
           maxWidth="lg"
           sx={{
             margin: "0 auto",
-            pt: "30px",
+            mt: "30px",
             gridAutoRows: "max-content",
           }}
         >

@@ -38,7 +38,7 @@ const TaskPage = () => {
   return (
     <Container
       sx={{
-        backgroundColor: "#fff",
+        backgroundColor: "primary.light",
         height: "100vh",
         paddingTop: "60px",
       }}
@@ -56,7 +56,7 @@ const TaskPage = () => {
           maxWidth="lg"
           sx={{
             margin: "0 auto",
-            pt: "30px",
+            mt: "30px",
             gridAutoRows: "max-content",
           }}
         >

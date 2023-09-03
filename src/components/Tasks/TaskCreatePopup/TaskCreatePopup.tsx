@@ -18,6 +18,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -25,7 +26,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { useCreateTaskMutation } from "../../../redux/api/taskApi";
 // import dayjs from "dayjs";
 import { ICreateTask } from "../../../types/task";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const createTaskSchema = object({
   name: string().min(1).max(50).nonempty("Name is required"),
@@ -55,6 +56,12 @@ const TaskCreatePopup = () => {
   const methods = useForm<ICreateTask>({
     resolver: zodResolver(createTaskSchema),
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from =
+    ((location.state as any)?.from.pathname as string) || "/categories";
 
   const onSubmitHandler: SubmitHandler<ICreateTask> = (values) => {
     // console.log(values);
@@ -87,15 +94,36 @@ const TaskCreatePopup = () => {
 
   return (
     <>
-      <Button
+      <ButtonGroup
         sx={{
-          width: "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
-        variant="contained"
-        onClick={handleOpen}
       >
-        <Typography variant="button">Add task</Typography>
-      </Button>
+        <Button
+          variant="contained"
+          onClick={() => navigate(from)}
+          sx={{
+            backgroundColor: "secondary.contrastText",
+            color: "secondary.dark",
+            ":hover": { backgroundColor: "secondary.contrastText" },
+          }}
+          startIcon={<ChevronLeftIcon />}
+        >
+          <Typography variant="button">Back</Typography>
+        </Button>
+        <Button
+          sx={{
+            width: "auto",
+          }}
+          variant="contained"
+          onClick={handleOpen}
+        >
+          <Typography variant="button">Add task</Typography>
+        </Button>
+      </ButtonGroup>
+
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{

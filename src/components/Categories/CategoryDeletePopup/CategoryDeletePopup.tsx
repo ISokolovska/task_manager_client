@@ -16,11 +16,12 @@ export interface CategoryItemProps {
 
 const CategoryDeletePopup = (props: CategoryItemProps) => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const [deleteCategory, { isSuccess, isError, isLoading }] =
     useDeleteCategoryMutation();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const onDeleteHandler = (id: number) => {
     deleteCategory(id);

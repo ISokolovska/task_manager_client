@@ -22,8 +22,6 @@ export type ICreateCategory = TypeOf<typeof createCategorySchema>;
 
 const CategoryCreatePopup = () => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const [createCategory, { isLoading, isError, isSuccess }] =
     useCreateCategoryMutation();
@@ -31,6 +29,12 @@ const CategoryCreatePopup = () => {
   const methods = useForm<ICreateCategory>({
     resolver: zodResolver(createCategorySchema),
   });
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    methods.reset();
+  };
 
   const onSubmitHandler: SubmitHandler<ICreateCategory> = (values) => {
     createCategory(values);
@@ -51,6 +55,7 @@ const CategoryCreatePopup = () => {
     if (methods.formState.isSubmitting) {
       methods.reset();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [methods.formState.isSubmitting]);
 
@@ -59,7 +64,10 @@ const CategoryCreatePopup = () => {
       <Button
         variant="contained"
         sx={{
+          display: "flex",
           width: "auto",
+          marginLeft: "auto",
+          marginRight: "24px",
         }}
         onClick={handleOpen}
       >

@@ -32,15 +32,16 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="lg">
+      <Container>
         <Toolbar>
-          <Box display="flex" sx={{ ml: "auto" }}>
+          <Box display="flex" sx={{ ml: "auto", p: 0 }}>
             {!user && (
               <>
                 <Button
                   variant="contained"
                   sx={{
                     mr: 2,
+                    p: 0,
                   }}
                   onClick={() => navigate("/register")}
                 >

@@ -28,8 +28,6 @@ type IUpdateCategory = TypeOf<typeof updateCategorySchema>;
 
 const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const [updateCategory, { isLoading, isError, isSuccess }] =
     useUpdateCategoryMutation();
@@ -37,6 +35,11 @@ const CategoryEditPopup: FC<IUpdateCategoryProp> = ({ category }) => {
   const methods = useForm<IUpdateCategory>({
     resolver: zodResolver(updateCategorySchema),
   });
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    methods.reset();
+  };
 
   useEffect(() => {
     if (isSuccess) {

@@ -42,30 +42,27 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
           sx={{
             maxWidth: 345,
             overflow: "visible",
-            border: "1px solid #2363eb",
+            border: "1px solid",
+            borderColor: "primary.main",
           }}
         >
           <CardContent>
-            <Box display="flex" alignItems="center" sx={{ mt: "1rem" }}>
+            <Box display="flex" alignItems="center">
               <Typography
-                variant="body1"
+                variant="caption"
                 sx={{
-                  fontWeight: 500,
-                  fontSize: "1.05rem",
-                  backgroundColor: "#dad8d8",
                   p: "0.1rem 0.4rem",
                   borderRadius: 1,
                   mr: "1rem",
+                  backgroundColor: "primary.light",
                 }}
               >
                 {category.name}
               </Typography>
               <Typography
-                variant="body2"
+                variant="caption"
                 sx={{
-                  fontWeight: 500,
-                  fontSize: "1.05rem",
-                  color: "#ffa238",
+                  color: "secondary.dark",
                 }}
               >
                 {dayjs(category.dateCreated).format("DD.MM.YYYY")}
@@ -116,6 +113,9 @@ const CategoryItem: FC<ICategoryItemProps> = ({ category }) => {
                 fontWeight: 700,
                 fontSize: "1.002rem",
                 lineHeight: "1.75",
+                // "& .MuiButtonBase-root-MuiButton-root": {
+                //   ml: "0px",
+                // },
               }}
               onClick={handleNewPage}
             >

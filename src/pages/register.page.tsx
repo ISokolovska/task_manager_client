@@ -96,7 +96,7 @@ const RegisterPage = () => {
         >
           Welcome to TaskManager!
         </Typography>
-        <Typography variant="h2" sx={{ color: "primary.contrastText", mb: 2 }}>
+        <Typography variant="h3" sx={{ color: "primary.contrastText", mb: 2 }}>
           Sign Up To Get Started!
         </Typography>
 
